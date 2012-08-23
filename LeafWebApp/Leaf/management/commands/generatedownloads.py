@@ -9,6 +9,7 @@ import tarfile
 
 from django.core.management.base import BaseCommand
 from django.core.files import File
+from django.core.files.base import ContentFile
 from django.core.files.uploadedfile import InMemoryUploadedFile
 from django.core.files.temp import NamedTemporaryFile
 from django.conf import settings
@@ -263,6 +264,15 @@ class Command(BaseCommand):
         subprocess.Popen(['tar', '-zcvf', 'PDBData.tar.gz', 'PDBData'], cwd=settings.MEDIA_ROOT + 'TarData', stdout=subprocess.PIPE, stderr=subprocess.STDOUT)
 
 
+        proteinChains = []
+        readChainTypeData = open(destinationDir + '/ChainType.txt', 'r')
+        for i in readChainTypeData:
+            chunks = (i.strip()).split('\t')
+            if chunks[1] == 'Protein':
+                proteinChains.append(chunks[0])
+        readChainTypeData.close()
+        proteinChains = '\n'.join(proteinChains)
+
         # Generate the culled PDB lists.
         resolutionsOfInterest = [1.6, 1.8, 2.0, 2.2, 2.5, 3.0]
         rValuesOfInterest = [0.25, 1.0]
@@ -324,7 +334,7 @@ class Command(BaseCommand):
                         skipNonXray = True
                         skipAlphaCarbon = True
                     r = PDBCullRequest(
-                                       wholePDB=True,
+                                       wholePDB=False,
                                        sequenceIdentity=seqIdentity,
                                        minResolution=0.0,
                                        maxResolution=resolution,
@@ -341,6 +351,7 @@ class Command(BaseCommand):
                                        requestDate=datetime.datetime.now()
                                        )
                     r.save()
+                    r.userInput.save('', ContentFile(proteinChains))
                     cullinput.controlthread.RunCull(r, 'pdb')
                     updatesPerformed.append(r)
 

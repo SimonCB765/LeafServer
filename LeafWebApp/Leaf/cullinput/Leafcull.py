@@ -61,22 +61,22 @@ def pruneGraph(adjList, IDs):
                         else:
                             break
                     else:
-                        toRemove = adjList[i]
+                        toRemove = [j for j in adjList[i]]
                         neighbours[nClique] -= set([i])
                         neighbours[0] |= set([i])
-                        for i in toRemove:
-                            removeList.append(i)
+                        for j in toRemove:
+                            removeList.append(j)
                             # Update the list of neighbours for each node that toRemove is adjacent to.
-                            for j in adjList[i]:
-                                numNeighbours = len(adjList[j])
-                                neighbours[numNeighbours] -= set([j])
-                                neighbours[numNeighbours - 1] |= set([j])
-                                adjList[j].remove(i)
+                            for k in adjList[j]:
+                                numNeighbours = len(adjList[k])
+                                neighbours[numNeighbours] -= set([k])
+                                neighbours[numNeighbours - 1] |= set([k])
+                                adjList[k].remove(j)
                             # Update the adjacency list to reflect the removal of to remove.
-                            numNeighbours = len(adjList[i])
-                            neighbours[numNeighbours] -= set([i])
-                            neighbours[0] |= set([i])
-                            adjList[i] = []
+                            numNeighbours = len(adjList[j])
+                            neighbours[numNeighbours] -= set([j])
+                            neighbours[0] |= set([j])
+                            adjList[j] = []
                         nClique = 1
                         break
                 else:
@@ -94,6 +94,10 @@ def pruneGraph(adjList, IDs):
         while neighbours[maxNeighbours] == set([]):
             del neighbours[maxNeighbours]
             maxNeighbours = max(neighbours.keys())
+
+        # If there are no nodes with neighbours then exit.
+        if maxNeighbours == 0:
+            return removeList
 
         # Get the IDs of the nodes with the max number of neighbours.
         nodesWithMaxNeighbours = list(neighbours[maxNeighbours])

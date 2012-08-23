@@ -17,6 +17,7 @@ import sys
 import adjlistcreation
 import Leafcull
 import userseqcontroller
+import checkPDBinput
 
 class RunCull(Thread):
     def __init__(self, request, requestType):
@@ -36,9 +37,6 @@ class RunCull(Thread):
         if self.requestType == 'seq':
             try:
                 outputLocation = userseqcontroller.main(self.request.userInput.path, self.request.sequenceIdentity, self.request.minLength, self.request.maxLength, self.request.SEG, 'UserSeq' + str(self.request.id))
-                logger = open('/srv/www/vhosts.d/www.bioinf/html/doig/cgi-bin/django_projects/LeafWebApp/ErrorLogs/ERROR.log', 'a')
-                logger.write('\tCULLED: thread for request ' + str(self.request.id) + ', of type ' + str(self.requestType) + '.\n')
-                logger.close()
                 readOutput = open(outputLocation + '/KeptList.txt', 'r')
                 self.request.nonredNoSeq.save('', ContentFile(readOutput.read()))
                 readOutput.close()
@@ -51,11 +49,11 @@ class RunCull(Thread):
                 self.request.completed = True
                 self.request.save()
                 logger = open('/srv/www/vhosts.d/www.bioinf/html/doig/cgi-bin/django_projects/LeafWebApp/ErrorLogs/ERROR.log', 'a')
-                logger.write('\tFINISH: thread for request ' + str(self.request.id) + ', of type ' + str(self.requestType) + 'on ' + strftime('%Y/%m/%d/ at %H:%M:%S', gmtime()) + 'y.\n')
+                logger.write('\tFINISH: thread for request ' + str(self.request.id) + ', of type ' + str(self.requestType) + ' on ' + strftime('%Y/%m/%d/ at %H:%M:%S', gmtime()) + '.\n')
                 logger.close()
             except:
                 logger = open('/srv/www/vhosts.d/www.bioinf/html/doig/cgi-bin/django_projects/LeafWebApp/ErrorLogs/ERROR.log', 'a')
-                logger.write('\tERROR: thread for request ' + str(self.request.id) + ', of type ' + str(self.requestType) + 'on ' + strftime('%Y/%m/%d/ at %H:%M:%S', gmtime()) + '.\n')
+                logger.write('\tERROR: thread for request ' + str(self.request.id) + ', of type ' + str(self.requestType) + ' on ' + strftime('%Y/%m/%d/ at %H:%M:%S', gmtime()) + '.\n')
                 excType, excValue, excTrace = sys.exc_info()
                 logger.write('\t\tException type: ' + str(excType) + '\n')
                 logger.write('\t\tException Value: ' + str(excValue) + '\n')
@@ -113,9 +111,9 @@ class RunCull(Thread):
                 similarityData = DownloadableFiles.objects.filter(fileName__exact='Similarity')[0].downloadFile.path
                 representativeData = DownloadableFiles.objects.filter(fileName__exact='Representative')[0].downloadFile.path
 
-                logger = open('/srv/www/vhosts.d/www.bioinf/html/doig/cgi-bin/django_projects/LeafWebApp/ErrorLogs/ERROR.log', 'a')
-                logger.write('\tRequest parsed seqiden=' + str(sequenceIdentity) + ' res=' + str(minResolution) + '-' + str(maxResolution) + ' RVal=' + str(maxRValue) + '.\n')
-                logger.close()
+                checkedUserInput = open(self.request.userInput.path, 'r')
+                retVal = checkedUserInput.read()
+                checkedUserInput.close()
             
                 if cullMethod == 'Entry':
                     # If the method of culling is 'by entry', record the entries and convert the entries to their corresponding chains.
@@ -239,10 +237,6 @@ class RunCull(Thread):
                                 chainsToCull.add(chain)
                         readProteinData.close()
 
-                logger = open('/srv/www/vhosts.d/www.bioinf/html/doig/cgi-bin/django_projects/LeafWebApp/ErrorLogs/ERROR.log', 'a')
-                logger.write('\tInvalid chains removed. ' + str(len(chainsToCull)) + ' kept.\n')
-                logger.close()
-
                 # Determine representative chain information.
                 # representatives records the non-representative to representative chain mapping for the non-representative
                 # chains in the set of chains to cull.
@@ -276,10 +270,6 @@ class RunCull(Thread):
                     else:
                         representativesReverse[reprChain] = set([i])
                 representativesReverseKeys = representativesReverse.keys()
-
-                logger = open('/srv/www/vhosts.d/www.bioinf/html/doig/cgi-bin/django_projects/LeafWebApp/ErrorLogs/ERROR.log', 'a')
-                logger.write('\t' + str(len(representativeChains)) + ' representatives found.\n')
-                logger.close()
 
                 if cullMethod == 'Entry':
                     removedInput = cull_main(similarityData, sequenceIdentity, representativeChains, 'entry', representativesReverse)
@@ -369,10 +359,6 @@ class RunCull(Thread):
                             # If the representative chain that was kept has no non-representative chains in the input, then the representative chain was in the input. Keep it.
                             keptInputChains.add(i)
                     removedInput = sorted([i for i in potentialChains if i not in keptInputChains])
-
-                logger = open('/srv/www/vhosts.d/www.bioinf/html/doig/cgi-bin/django_projects/LeafWebApp/ErrorLogs/ERROR.log', 'a')
-                logger.write('\tCULLED: thread for request ' + str(self.request.id) + ', of type ' + str(self.requestType) + ', on ' + strftime('%Y/%m/%d/ at %H:%M:%S', gmtime()) + '.\n')
-                logger.close()
                 
                 keptInputOutput = 'IDs\tlength\tExptl.\tresolution\tR-factor\tFreeRvalue\n'
                 fastaOutput = ''
@@ -414,6 +400,11 @@ class RunCull(Thread):
                 self.request.nonredSeq.save('', ContentFile(fastaOutput))
                 self.request.completed = True
                 self.request.save()
+
+                logger = open('/srv/www/vhosts.d/www.bioinf/html/doig/cgi-bin/django_projects/LeafWebApp/ErrorLogs/ERROR.log', 'a')
+                logger.write('\tFINISH: thread for request ' + str(self.request.id) + ', of type ' + str(self.requestType) + ' on ' + strftime('%Y/%m/%d/ at %H:%M:%S', gmtime()) + '.\n')
+                logger.close()
+
             except:
                 logger = open('/srv/www/vhosts.d/www.bioinf/html/doig/cgi-bin/django_projects/LeafWebApp/ErrorLogs/ERROR.log', 'a')
                 logger.write('\tERROR: thread for request ' + str(self.request.id) + ', of type ' + str(self.requestType) + 'on ' + strftime('%Y/%m/%d/ at %H:%M:%S', gmtime()) + '.\n')

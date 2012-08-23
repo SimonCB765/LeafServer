@@ -66,7 +66,7 @@
 				</li>
 				<li>
 					The percentage sequence identity submitted will be taken to be the maximum sequence identity permissible. 
-					For example, if 20% sequence identity is chosen, there will be no proteins with greater than 20% sequence 
+					For example, if 20% sequence identity is chosen there will be no proteins with greater than 20% sequence 
 					identity in the non-redundant set. The percentage must be greater than or equal to 5, and less than 100.
 				</li>
 				<li>
@@ -90,7 +90,11 @@
 					PDB.
 				</li>
 				<li>Any file uploaded should be in plain text format. For example, do not create and submit a Microsoft Word format file.</li>
-				<li>The expected format for the pasted/uploaded PDB chains/entries to cull is to have one chain/entry on a line, with no additional whitesapce on the line.</li>
+				<li>The expected format for the pasted/uploaded PDB chains/entries to cull is to have one chain/entry on a line with no additional whitesapce on the line.</li>
+				<li>
+					When culling the PDB by chains, it is acceptable to supply entries. The entries will just be converted into all their constituent chains 
+					for the culling. For example, if culling by chain and you supply the entry 4FCV, then this will be converted to 4FCVA, 4FCVB and 4FCVC.
+				</li>
 				<li>
 					The percentage sequence identity submitted will be taken to be the maximum sequence identity permissible. 
 					For example, if 20% sequence identity is chosen, there will be no chains/entries with greater than 20% 
@@ -223,14 +227,14 @@
 								<li>A FASTA format file of the chains in the non-redundant dataset.</li>
 								<li>If cull by entry was selected, then this file contains all the chains in each non-redundnat entry that were not removed by intra-entry culling of chains.</li>
 								<li>Each chain is represented by two consecutive lines in the file.</li>
-								<li>First is an identifier line for the chain, followed by the sequence of the chain in all capital letters.</li>
+								<li>The first line is an identifier line for the chain. The second line contains the sequence of the chain.</li>
 								<li>
-									The identifier line begins with a '>', and the values (from left to right) are: ChainID, 
-									ChainLength, ExperimentalMethodAbrv, Resolution, R-value, FreeR-value, AlphaCarbonOnly, ChainDescription, &#60DBCode DBIdentifier&#62 and [OrganismName].
+									The identifier line begins with a '>', and the values (from left to right) are: Chain ID, 
+									Chain Length, Experimental Method Abreviaation, Resolution, R-value, Free R-value, Alpha Carbon Only, Chain Description, &#60DBCode DBIdentifier&#62 and [OrganismName].
 								</li>
-								<li>Tabs separate the values on the line.</li>
-								<li>There may be additional whitespace in the ChainDescription.</li>
-								<li>AlphaCarbonOnly is 'no' if the chain structure is not purely composed of alpha carbon atoms.</li>
+								<li>Tabs separate the values on the identifier line.</li>
+								<li>There may be additional whitespace in the Chain Description.</li>
+								<li>Alpha Carbon Only is 'no' if the chain structure is not purely composed of alpha carbon atoms.</li>
 								<li>
 									The DBCode is the code used by the PDB to record an external database where information about the chain can be found (e.g. UNP for UniProt), and the 
 									DBIdentifier is the identifier used to locate the chain in the external database (e.g. VAV_MOUSE).
@@ -249,7 +253,7 @@
 						<li>
 							User Input
 							<ul>
-								<li>The sequences uploaded by the user, in FASTA format</li>
+								<li>The sequences uploaded by the user, in the expected FASTA format</li>
 							</ul>
 						</li>
 					</ul>
@@ -288,16 +292,16 @@
 		<p>
 			The format of the pdbaa files is to have a one line description of the protein chains, with the entire protein sequence on the following line in capital letters. 
 			The desctiption line for each chain follows a standard format. Each element of the description is separated from the next by a tab ('\t') character. There are always 
-			at least ten elements on each description line. The first element (following right after the leading '>') is the chain identifier. The next six elements are the length 
+			ten elements on each description line. The first element (following right after the leading '>') is the chain identifier. The next six elements are the length 
 			of the protein sequence, the experimental method used to determine the structure, the resolution of the structure, the R value, the free R value and whether the structure
 			is composed purely of alpha carbon atoms ('yes' if true, 'no' if false). The next element is the description of the chain recorded in the PDB. The description may contain
 			whitespace, but will not contain any tabs. Following the description comes information about an external database where the chain can be found. The format for this is 
-			<dbCode dbID>, with the dbCode being the abbreviation for the external database (e.g. UNP for UniProt), and the dbID being the identifier of the chain in the external database. 
+			&#60dbCode dbID&#62, with the dbCode being the abbreviation for the external database (e.g. UNP for UniProt), and the dbID being the identifier of the chain in the external database. 
 			The final standard element is the name of the organism that the protein chain comes from. The format for this is [genus species]. The recording of the genus and species comes 
 			directly from the PDB, and therfore the case of the words is unkown (for example both MUS MUSCULUS and Mus musculus can be found).<br><br>
                      In the pdbaaent and pdbaanr files there is the possiblity for further elements. This only occurs when the chain in the file is the representative chain for other chains. 
 			In this case there is an eleventh element on the description line. This element is '||', and is separated from the scientific name of the organism by a tab. Following the '||', 
-			is a list of the chains which the chain in the file represetns, all separated by tabs. For example, 1KFGB, 1KFGA, 1K72B, 1K72A and 1GA2B all have the same sequence as 1GA2A, 
+			is a list of the chains which the chain in the file represents, all separated by tabs. For example, 1KFGB, 1KFGA, 1K72B, 1K72A and 1GA2B all have the same sequence as 1GA2A, 
 			and therefore the description line for 1GA2A in pdbaanr has the following at the end of it:<br>
 			<pre>[Genus species]	||	1KFGB	1KFGA	1K72B	1K72A	1GA2B</pre>
 			<br>
@@ -309,7 +313,7 @@
 					<li>For pdbaanr this is done over the entire set of PDB entries. This means that 1GA2A, 1GA2B, 1KFGA, 1KFGB, 1K72A and 1K72B are all deemed to be identical.</li>
 				</ul>
 				<li>Determine the resolution, R value and experimental method used for each chain.</li>
-				<li>For each set of identical chains, select the representative chains as follows:</li>
+				<li>For each set of identical chains, select the representative chain as follows:</li>
 				<ol>
 					<li>
 						Determine if there are any chains which had their structure determined by X-ray diffraction. If there is only one X-ray chain, then it is the representative. 
@@ -333,7 +337,7 @@
 		<p>
 			<ul>
 				<li>
-					If 50% or more of the amino acids in an amino acid sequence are X, then the entity is marked as a NonProtein, 
+					If 50% or more of the amino acids in an amino acid sequence are X (the amino acid code for unknown), then the entity is marked as a NonProtein, 
 					and not included in the list of proteins.
 				</li>
 				<li>

@@ -74,8 +74,8 @@
 			This page provides downloads for non-redundant datasets, generated using a variety of structural criteria.<br>
 			<br>If you want to generate a non-redundant dataset using different structural criteria, this can be done by generating a <b><a href="{% url Leaf.views.culling %}">user requested dataset</a></b>.<br>
 			<br>The name of each download follows a defined format. The format is: SeqIden_X_Res_Y_RVal_Z. X is the percentage sequence identity threshold used. This means that if 
-			X is 20, then there are no two sequences in the non-redundant dataset witha  pairwise sequence idenitty greater than 20%. Y is the maximum resolution of the protein structure. 
-			Z is the maximum R value. If the name of the download ends in INCLNONXRAY_INCLCAONLY, then the dataset from which the redundancy was removed contained non-X-ray structures, and 
+			X is 20, then there are no two sequences in the non-redundant dataset with a pairwise sequence identity greater than 20%. Y is the maximum resolution of the protein structure. 
+			Z is the maximum R value. If the name of the download ends in INCLNONXRAY_INCLCAONLY, then the dataset from which the redundancy was removed contained non-X-ray structures and 
 			chains where the strucutre contains only backbone alpha carbon atoms.<br>
 			<br>The non-redundant dataset is recorded in a FASTA file, with the same format as the FASTA files returned by the user generated redundancy removal. The format of the files 
 			can be found <b><a href="{% url Leaf.views.help_page %}#PdbaaGeneration">here</a></b>, ignoring the portion about the pdbaaent dataset, pdbaanr dataset and representative sequences.
@@ -839,19 +839,19 @@
 		<hr>
 		<a name="pdbaa"></a>
 		<h2>FASTA Files of the Entire PDB</h2>
-		<p>For a more in depth description of the format and process of generating the datasets, see <b><a href="{% url Leaf.views.help_page %}#PdbaaGeneration">here</a></b>.</p>
+		<p>For a more in depth description of the format and process of generating these datasets, see <b><a href="{% url Leaf.views.help_page %}#PdbaaGeneration">here</a></b>.</p>
 		<p>
 			<a href={{ currentPage }}pdbaa>pdbaa.gz</a> - Every protein chain in the PDB is included once in pdbaa. An example of the format of the description line is as follows:<br>
 			<pre style="font-size:14px">>1GA2A  614  XRAY  1.7  0.17  0.197  no  ENDOGLUCANASE 9G  <UNP GUNG_CLOCE>  [Clostridium cellulolyticum]</pre>
 		</p>
 		<p>
-			<a href={{ currentPage }}pdbaaent>pdbaaent.gz</a> - Only those chains which are non-redundant withinn each entry (e.g. 1GA2) appear in pdbaaent. 
-			For example, 1GA2B has an identical sequence to 1GA2A, and therefore does not appear in pdbaaent. In this file, the description line for 1GA2A changes to:<br>
+			<a href={{ currentPage }}pdbaaent>pdbaaent.gz</a> - Only those chains which are non-redundant within each entry (e.g. 1GA2) appear in pdbaaent. 
+			For example, 1GA2B has an identical sequence to 1GA2A, and therefore does not appear in pdbaaent. In this file the description line for 1GA2A changes to:<br>
 			<pre style="font-size:14px">>1GA2A  614  XRAY  1.7  0.17  0.197  no  ENDOGLUCANASE 9G  <UNP GUNG_CLOCE>  [Clostridium cellulolyticum] || 1GA2B</pre>
 		</p>
 		<p>
 			<a href={{ currentPage }}pdbaanr>pdbaanr.gz</a> - Only those chains which are non-redundant withinn the entire PDB are included in pdbaanr. 
-			For example, 1KFGB, 1KFGA, 1K72B, 1K72A and 1GA2B all have the same sequence as 1GA2A, and therefore do not appear in pdbaanr. In this file, the description line for 1GA2A changes to:<br>
+			For example, 1KFGB, 1KFGA, 1K72B, 1K72A and 1GA2B all have the same sequence as 1GA2A, and therefore do not appear in pdbaanr. In this file the description line for 1GA2A changes to:<br>
 			<pre style="font-size:14px">>1GA2A  614  XRAY  1.7  0.17  0.197  no  ENDOGLUCANASE 9G  <UNP GUNG_CLOCE>  [Clostridium cellulolyticum] || 1KFGB 1KFGA 1K72B 1K72A 1GA2B</pre>
 		</p>
 		<hr>
