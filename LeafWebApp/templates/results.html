@@ -1,0 +1,95 @@
+
+
+<html>
+
+<head>
+
+	<title>Leaf Protein Culling Server</title>
+	<LINK REL=StyleSheet href="{{ MEDIA_URL }}style.css" TYPE="text/css">
+	<meta http-equiv="refresh" content="60" >
+
+</head>
+
+<body>
+
+	<div id="header">
+		<h1>Leaf Protein Culling Server</h1>
+	</div>
+
+	<div id="navigation">
+		<p>
+			<b>
+				<a href="{% url Leaf.views.index %}">
+					Home
+				</a>
+			</b>
+		</p>
+		<p>
+			<b>
+				<a href="{% url Leaf.views.culling %}">
+					Culling
+				</a>
+			</b>
+		</p>
+		<p>
+			<b>
+				<a href="{% url Leaf.views.downloads %}">
+					Culled Lists and Source Code
+				</a>
+			</b>
+		</p>
+		<p>
+			<b>
+				<a href="{% url Leaf.views.contact %}">
+					Contact Information
+				</a>
+			</b>
+		</p>
+	</div>
+
+	<div id="content">
+		{% if notComplete %}
+			<p>
+				Your request has not finished processing yet. Please wait. The page is set to refresh every 60 seconds.<br>
+				Alternatively you can refresh the page manualy, or record the URL of the page and come back later.
+			</p>
+		{% else %}
+			{% if notWholePDB %}
+				<p>
+					<a href={{ currentPage }}Input>
+						User Input
+					</a>
+				</p>
+			{% endif %}
+			<p>
+				<a href={{ currentPage }}Removed>
+					Input Sequences Removed
+				</a>
+			</p>
+			<p>
+				<a href={{ currentPage }}NonRedundantList>
+					Non-redundant Sequence Statistics
+				</a>
+			</p>
+			<p>
+				<a href={{ currentPage }}NonRedundantFasta>
+					Non-redundant Sequences
+				</a>
+			</p>
+			{% if pdb %}
+				<p>
+					<a href={{ currentPage }}Similarities>
+						Pairwise Similarities
+					</a>
+				</p>
+			{% endif %}
+		{% endif %}
+	</div>
+
+	<div id="footer">
+		<p>Last updated <!-- #BeginDate format:Am1 -->July 16, 2012<!-- #EndDate -->.</p>
+	</div>
+
+</body>
+
+</html>

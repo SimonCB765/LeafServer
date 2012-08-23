@@ -1,0 +1,227 @@
+
+
+<html>
+
+<head>
+
+	<title>Leaf Protein Culling Server</title>
+	<LINK REL=StyleSheet href="{{ MEDIA_URL }}style.css" TYPE="text/css">
+
+</head>
+
+<body>
+
+	<div id="header">
+		<h1>Leaf Protein Culling Server</h1>
+	</div>
+
+	<div id="navigation">
+		<p>
+			<b>
+				<a href="{% url Leaf.views.index %}">
+					Home
+				</a>
+			</b>
+		</p>
+		<p>
+			<b>
+				<a href="{% url Leaf.views.culling %}">
+					Culling
+				</a>
+			</b>
+		</p>
+		<p>
+			<b>
+				<a href="{% url Leaf.views.downloads %}">
+					Culled Lists and Source Code
+				</a>
+			</b>
+		</p>
+		<p>
+			<b>
+				<a href="{% url Leaf.views.contact %}">
+					Contact Information
+				</a>
+			</b>
+		</p>
+	</div>
+
+	<div id="content">
+
+		<p align="center">
+                  <br><a href="{% url Leaf.views.help_page %}#UserSequenceCulling"><b>Help Information</b></a>
+		</p>
+		
+		{% if errorMessage %}
+			<hr>
+			<div id="error">
+				<p align="center"><b>There were errors in your input. The incorrect fields are highlighted in red.<b></p>
+				<ul>
+				{% for error in errorMessage %}
+	        		<li>{{ error }}</li>
+	    		       {% endfor %}
+				</ul>
+			</div>
+		{% endif %}
+
+		<form enctype="multipart/form-data" action="{% url Leaf.views.user_submit %}" method="post">
+			{% csrf_token %}
+			<hr>
+			<h2 align="center">Select Sequences to Cull</h2>
+			<table align="center">
+				<tr>
+					<td align="center">
+						<b>Please paste or type your sequences in FASTA format in the box below:</b>
+					</td>
+				</tr>
+				<tr>
+					<td align="center">
+						{% if errorPasted %}
+							<textarea name="pastedInfo" rows="10" cols="50" style="background-color:#FF0000">{{ pastedSequences }}</textarea>
+						{% else %}
+							{% if pastedSequences %}
+								<textarea name="pastedInfo" rows="10" cols="50">{{ pastedSequences }}</textarea>
+							{% else %}
+								<textarea name="pastedInfo" rows="10" cols="50"></textarea>
+							{% endif %}
+						{% endif %}
+					</td>
+				</tr>
+				<tr>
+					<td align="center">
+						<b><br>Or choose a FASTA format file to upload:</b>
+					</td>
+				</tr>
+				<tr>
+					<td align="center">
+						{% if errorUploaded %}
+							<input type="file" name="upload" size="40" style="background-color:#FF0000"/>
+						{% else %}
+							<input type="file" name="upload" size="40"/>
+						{% endif %}
+					</td>
+				</tr>
+			</table>
+			<hr>
+			<h2 align="center">Select Sequence Properities</h2>
+			<table align='center' border='0' cellpadding=5>
+				<tr>
+					<td>
+						<b>Percentage Sequence Identity:</b>
+					</td>
+					<td colspan="2">
+						{% if errorPercent %}
+							{% if pc %}
+								<input type="text" name="pc" value={{ pc }} size="15" style="background-color:#FF0000"/>
+							{% else %}
+								<input type="text" name="pc" value="" size="15" style="background-color:#FF0000"/>
+							{% endif %}
+						{% else %}
+							{% if pc %}
+								<input type="text" name="pc" value={{ pc }} size="15"/>
+							{% else %}
+								<input type="text" name="pc" value="20" size="15"/>
+							{% endif %}
+						{% endif %}
+					</td>
+				</tr>
+				<tr>
+					<td>
+						<b>Enforce Minimum Sequence Length?</b>
+					</td>
+					<td>
+						{% if enforceMinLength %}
+							<input type="radio" name="enforceMinLength" value="no"/>No
+							<input type="radio" name="enforceMinLength" value="yes" checked="checked"/>Yes - 
+						{% else %}
+							<input type="radio" name="enforceMinLength" value="no" checked="checked"/>No
+							<input type="radio" name="enforceMinLength" value="yes"/>Yes - 
+						{% endif %}
+					</td>
+					<td>
+						{% if errorMinLength %}
+							{% if minLength %}
+								<input type="text" name="minLength" value={{ minLength }} size="15" style="background-color:#FF0000"/>
+							{% else %}
+								<input type="text" name="minLength" value="" size="15" style="background-color:#FF0000"/>
+							{% endif %}
+						{% else %}
+							{% if minLength %}
+								<input type="text" name="minLength" value={{ minLength }} size="15"/>
+							{% else %}
+								<input type="text" name="minLength" value="40" size="15"/>
+							{% endif %}
+						{% endif %}
+					</td>
+				</tr>
+				<tr>
+					<td>
+						<b>Enforce Maximum Sequence Length?</b>
+					</td>
+					<td>
+						{% if enforceMaxLength %}
+							<input type="radio" name="enforceMaxLength" value="no"/>No
+							<input type="radio" name="enforceMaxLength" value="yes" checked="checked"/>Yes - 
+						{% else %}
+							<input type="radio" name="enforceMaxLength" value="no" checked="checked"/>No
+							<input type="radio" name="enforceMaxLength" value="yes"/>Yes - 
+						{% endif %}
+					</td>
+					<td>
+						{% if errorMaxLength %}
+							{% if maxLength %}
+								<input type="text" name="maxLength" value={{ maxLength }} size="15" style="background-color:#FF0000"/>
+							{% else %}
+								<input type="text" name="maxLength" value="" size="15" style="background-color:#FF0000"/>
+							{% endif %}
+						{% else %}
+							{% if maxLength %}
+								<input type="text" name="maxLength" value={{ maxLength }} size="15"/>
+							{% else %}
+								<input type="text" name="maxLength" value="10000" size="15"/>
+							{% endif %}
+						{% endif %}
+					</td>
+				</tr>
+				<tr>
+					<td>
+						<input type="hidden" name="SEG" value="no"/>
+					</td>
+				</tr>
+<!--				<tr>
+					<td>
+						<b>Would you like to enable SEG:</b>
+					</td>
+					<td>
+						{% if SEG %}
+							<input type="radio" name="SEG" value="yes" checked="checked"/>Yes
+							<input type="radio" name="SEG" value="no"/>No
+						{% else %}
+							<input type="radio" name="SEG" value="yes"/>Yes
+							<input type="radio" name="SEG" value="no" checked="checked"/>No
+						{% endif %}
+					</td>
+				</tr>
+-->
+			</table>
+			<hr>
+			<p align="center">
+				<!--Please enter your email address in order to receive the results:-->
+				{% if email %}
+					<input type="hidden" name="email" size="40" value={{ email }} />
+				{% else %}
+					<input type="hidden" name="email" size="40" value="email@ig.nore" />
+				{% endif %}
+			</p>
+			<p align="center"><input type="submit" value="Submit Form" /><input type="reset" value="Clear Form" label="Reset" /></p>
+		</form>
+
+	</div>
+
+	<div id="footer">
+		<p>Last updated <!-- #BeginDate format:Am1 -->July 16, 2012<!-- #EndDate -->.</p>
+	</div>
+
+</body>
+
+</html>

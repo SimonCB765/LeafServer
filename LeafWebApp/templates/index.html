@@ -1,0 +1,78 @@
+
+
+<html>
+
+<head>
+
+	<title>Leaf Protein Culling Server</title>
+	<LINK REL=StyleSheet href="{{ MEDIA_URL }}style.css" TYPE="text/css">
+
+</head>
+
+<body>
+
+	<div id="header">
+		<h1>Leaf Protein Culling Server</h1>
+	</div>
+
+	<div id="navigation">
+		<p>
+			<b>
+				<a href="{% url Leaf.views.index %}">
+					Home
+				</a>
+			</b>
+		</p>
+		<p>
+			<b>
+				<a href="{% url Leaf.views.culling %}">
+					Culling
+				</a>
+			</b>
+		</p>
+		<p>
+			<b>
+				<a href="{% url Leaf.views.downloads %}">
+					Culled Lists and Source Code
+				</a>
+			</b>
+		</p>
+		<p>
+			<b>
+				<a href="{% url Leaf.views.contact %}">
+					Contact Information
+				</a>
+			</b>
+		</p>
+	</div>
+
+	<div id="content">
+              <p align="center">
+                  <br>There are two methods of <b><a href="{% url Leaf.views.culling %}">culling</a></b> provided by the server.<br>
+                  <ol>
+                      <li>
+                          Subsets of the PDB can be culled by pairwise sequence identity and structure quality. The subsets can be defined 
+                          by the user uploading a set of PDB chains/entries, or by the user selecting to cull the proteome of a given
+                          organism.
+                      </li>
+                      <li>A user can upload a set of proteins in FASTA format, and a non-redundant dataset can be generated from the uploaded sequences.</li>
+                  </ol>
+              </p>
+              <p align="center">
+                  Pre-computed sets of nonredundant PDB chains can also be <b><a href="{% url Leaf.views.downloads %}">downloaded</a></b>, along with the 
+                  <b><a href="{% url Leaf.views.downloads %}#SourceCode">source code and data files</a></b> needed to run the culling on a local machine.<br>
+                  <br>Contact information for the website and authors of the paper can be found <b><a href="{% url Leaf.views.contact %}">here</a></b>.<br>
+                  <br>Information about the extraction of the PDB data stored by the server can be found <b><a href="{% url Leaf.views.help_page %}#DataCollection">here</a></b>.<br>
+                  <br>Further information about the algorithm can be found in the <b><a href="">paper</a></b> describing it.<br>
+              </p>
+		<br>
+		<p align="center"><br>Manchester Institute of Biotechnology<br>131 Princess Street<br>Manchester<br>M1 7DN</p>
+	</div>
+
+	<div id="footer">
+		<p>Last updated <!-- #BeginDate format:Am1 -->July 16, 2012<!-- #EndDate -->.</p>
+	</div>
+
+</body>
+
+</html>

@@ -1,0 +1,311 @@
+
+
+<html>
+
+<head>
+
+	<title>Leaf Protein Culling Server</title>
+	<LINK REL=StyleSheet href="{{ MEDIA_URL }}style.css" TYPE="text/css">
+
+</head>
+
+<body>
+
+	<div id="header">
+		<h1>Leaf Protein Culling Server</h1>
+	</div>
+
+	<div id="navigation">
+		<p>
+			<b>
+				<a href="{% url Leaf.views.index %}">
+					Home
+				</a>
+			</b>
+		</p>
+		<p>
+			<b>
+				<a href="{% url Leaf.views.culling %}">
+					Culling
+				</a>
+			</b>
+		</p>
+		<p>
+			<b>
+				<a href="{% url Leaf.views.downloads %}">
+					Culled Lists and Source Code
+				</a>
+			</b>
+		</p>
+		<p>
+			<b>
+				<a href="{% url Leaf.views.contact %}">
+					Contact Information
+				</a>
+			</b>
+		</p>
+	</div>
+
+	<div id="content">
+
+		<p align="center">
+                  <br><a href="{% url Leaf.views.help_page %}#WholePDBCulling"><b>Help Information</b></a>
+		</p>
+		
+		{% if errorMessage %}
+			<hr>
+			<div id="error">
+				<p align="center"><b>There were errors in your input. The incorrect fields are highlighted in red.<b></p>
+				<ul>
+				{% for error in errorMessage %}
+	        		<li>{{ error }}</li>
+	    		       {% endfor %}
+				</ul>
+			</div>
+		{% endif %}
+
+		<form enctype="multipart/form-data" action="{% url Leaf.views.whole_pdb_submit %}" method="post">
+			{% csrf_token %}
+			<hr>
+			<h2 align="center">Select Sequence Properities</h2>
+			<table align='center' border='0' cellpadding=5>
+				<tr>
+					<td>
+						<b>Percentage Sequence Identity:</b>
+					</td>
+					<td colspan="2">
+						{% if errorPercent %}
+							{% if pc %}
+								<input type="text" name="pc" value={{ pc }} size="15" style="background-color:#FF0000"/>
+							{% else %}
+								<input type="text" name="pc" value="" size="15" style="background-color:#FF0000"/>
+							{% endif %}
+						{% else %}
+							{% if pc %}
+								<input type="text" name="pc" value={{ pc }} size="15"/>
+							{% else %}
+								<input type="text" name="pc" value="20" size="15"/>
+							{% endif %}
+						{% endif %}
+					</td>
+				</tr>
+				<tr>
+					<td>
+						<b>Minimum Resolution:</b>
+					</td>
+					<td colspan="2">
+						{% if errorMinRes %}
+							{% if minRes %}
+								<input type="text" name="minRes" value={{ minRes }} size="15" style="background-color:#FF0000"/>
+							{% else %}
+								<input type="text" name="minRes" value="" size="15" style="background-color:#FF0000"/>
+							{% endif %}
+						{% else %}
+							{% if minRes %}
+								<input type="text" name="minRes" value={{ minRes }} size="15"/>
+							{% else %}
+								<input type="text" name="minRes" value="0.0" size="15"/>
+							{% endif %}
+						{% endif %}
+					</td>
+				</tr>
+				<tr>
+					<td>
+						<b>Maximum Resolution:</b>
+					</td>
+					<td colspan="2">
+						{% if errorMaxRes %}
+							{% if maxRes %}
+								<input type="text" name="maxRes" value={{ maxRes }} size="15" style="background-color:#FF0000"/>
+							{% else %}
+								<input type="text" name="maxRes" value="" size="15" style="background-color:#FF0000"/>
+							{% endif %}
+						{% else %}
+							{% if maxRes %}
+								<input type="text" name="maxRes" value={{ maxRes }} size="15"/>
+							{% else %}
+								<input type="text" name="maxRes" value="3.0" size="15"/>
+							{% endif %}
+						{% endif %}
+					</td>
+				</tr>
+				<tr>
+					<td>
+						<b>Maximum R Value:</b>
+					</td>
+					<td colspan="2">
+						{% if errorRVal%}
+							{% if maxRVal %}
+								<input type="text" name="maxRVal" value={{ maxRVal }} size="15" style="background-color:#FF0000"/>
+							{% else %}
+								<input type="text" name="maxRVal" value="" size="15" style="background-color:#FF0000"/>
+							{% endif %}
+						{% else %}
+							{% if maxRVal %}
+								<input type="text" name="maxRVal" value={{ maxRVal }} size="15"/>
+							{% else %}
+								<input type="text" name="maxRVal" value="0.5" size="15"/>
+							{% endif %}
+						{% endif %}
+					</td>
+				</tr>
+				<tr>
+					<td>
+						<b>Enforce Minimum Chain Length?</b>
+					</td>
+					<td>
+						{% if enforceMinLength %}
+							<input type="radio" name="enforceMinLength" value="no"/>No
+							<input type="radio" name="enforceMinLength" value="yes" checked="checked"/>Yes - 
+						{% else %}
+							<input type="radio" name="enforceMinLength" value="no" checked="checked"/>No
+							<input type="radio" name="enforceMinLength" value="yes"/>Yes - 
+						{% endif %}
+					</td>
+					<td>
+						{% if errorMinLength %}
+							{% if minLength %}
+								<input type="text" name="minLength" value={{ minLength }} size="15" style="background-color:#FF0000"/>
+							{% else %}
+								<input type="text" name="minLength" value="" size="15" style="background-color:#FF0000"/>
+							{% endif %}
+						{% else %}
+							{% if minLength %}
+								<input type="text" name="minLength" value={{ minLength }} size="15"/>
+							{% else %}
+								<input type="text" name="minLength" value="40" size="15"/>
+							{% endif %}
+						{% endif %}
+					</td>
+				</tr>
+				<tr>
+					<td>
+						<b>Enforce Maximum Chain Length?</b>
+					</td>
+					<td>
+						{% if enforceMaxLength %}
+							<input type="radio" name="enforceMaxLength" value="no"/>No
+							<input type="radio" name="enforceMaxLength" value="yes" checked="checked"/>Yes - 
+						{% else %}
+							<input type="radio" name="enforceMaxLength" value="no" checked="checked"/>No
+							<input type="radio" name="enforceMaxLength" value="yes"/>Yes - 
+						{% endif %}
+					</td>
+					<td>
+						{% if errorMaxLength %}
+							{% if maxLength %}
+								<input type="text" name="maxLength" value={{ maxLength }} size="15" style="background-color:#FF0000"/>
+							{% else %}
+								<input type="text" name="maxLength" value="" size="15" style="background-color:#FF0000"/>
+							{% endif %}
+						{% else %}
+							{% if maxLength %}
+								<input type="text" name="maxLength" value={{ maxLength }} size="15"/>
+							{% else %}
+								<input type="text" name="maxLength" value="10000" size="15"/>
+							{% endif %}
+						{% endif %}
+					</td>
+				</tr>
+				<tr>
+					<td>
+						<b>Skip non-X-ray entries?</b>
+					</td>
+					<td>
+						{% if skipNonXray %}
+							<input type="radio" name="skipNonXray" value="yes"/>Yes
+							<input type="radio" name="skipNonXray" value="no" checked="checked"/>No
+						{% else %}
+							<input type="radio" name="skipNonXray" value="yes" checked="checked"/>Yes
+							<input type="radio" name="skipNonXray" value="no"/>No
+						{% endif %}
+					</td>
+				</tr>
+				<tr>
+					<td>
+						<b>Skip alpha carbon only entries?</b>
+					</td>
+					<td>
+						{% if skipAlphaCarbon %}
+							<input type="radio" name="skipAlphaCarbon" value="yes"/>Yes
+							<input type="radio" name="skipAlphaCarbon" value="no" checked="checked"/>No
+						{% else %}
+							<input type="radio" name="skipAlphaCarbon" value="yes" checked="checked"/>Yes
+							<input type="radio" name="skipAlphaCarbon" value="no"/>No
+						{% endif %}
+					</td>
+				</tr>
+			</table>
+			<hr>
+			<h2 align="center">Parameters for culling the PDB by entry</h2>
+			<table align='center' border='0' cellpadding=5>
+				<tr>
+					<td>
+						<b>Cull by chain or by entry?</b>
+					</td>
+					<td colspan="2">
+						{% if cullMethod %}
+							<input type="radio" name="cullMethod" value="chain"/>By Chains
+							<input type="radio" name="cullMethod" value="entry" checked="checked"/>By Entries
+						{% else %}
+							<input type="radio" name="cullMethod" value="chain" checked="checked"/>By Chains
+							<input type="radio" name="cullMethod" value="entry"/>By Entries
+						{% endif %}
+					</td>
+				</tr>
+				<tr>
+					<td>
+						<b>Cull chains within entries?</b>
+					</td>
+					<td>
+						{% if intraEntryCull %}
+							<input type="radio" name="intraEntryCull" value="yes" checked="checked"/>Yes
+							<input type="radio" name="intraEntryCull" value="no"/>No
+						{% else %}
+							<input type="radio" name="intraEntryCull" value="yes"/>Yes
+							<input type="radio" name="intraEntryCull" value="no" checked="checked"/>No
+						{% endif %}
+					</td>
+				</tr>
+				<tr>
+					<td>
+						<b>Within entry percentage sequence identity:</b>
+					</td>
+					<td>
+						{% if errorIntraEntry %}
+							{% if intraEntryPC %}
+								<input type="text" name="intraEntryPC" value={{ intraEntryPC }} size="15" style="background-color:#FF0000"/>
+							{% else %}
+								<input type="text" name="intraEntryPC" value="" size="15" style="background-color:#FF0000"/>
+							{% endif %}
+						{% else %}
+							{% if intraEntryPC %}
+								<input type="text" name="intraEntryPC" value={{ intraEntryPC }} size="15"/>
+							{% else %}
+								<input type="text" name="intraEntryPC" value="20" size="15"/>
+							{% endif %}
+						{% endif %}
+					</td>
+				</tr>
+			</table>
+			<hr>
+			<p align="center">
+				<!--Please enter your email address in order to receive the results:-->
+				{% if email %}
+					<input type="hidden" name="email" size="40" value={{ email }} />
+				{% else %}
+					<input type="hidden" name="email" size="40" value="email@ig.nore" />
+				{% endif %}
+			</p>
+			<p align="center"><input type="submit" value="Submit Form" /><input type="reset" value="Clear Form" label="Reset" /></p>
+		</form>
+
+	</div>
+
+	<div id="footer">
+		<p>Last updated <!-- #BeginDate format:Am1 -->July 16, 2012<!-- #EndDate -->.</p>
+	</div>
+
+</body>
+
+</html>

@@ -1,0 +1,90 @@
+
+
+<html>
+
+<head>
+
+	<title>Leaf Protein Culling Server</title>
+	<LINK REL=StyleSheet href="{{ MEDIA_URL }}style.css" TYPE="text/css">
+
+</head>
+
+<body>
+
+	<div id="header">
+		<h1>Leaf Protein Culling Server</h1>
+	</div>
+
+	<div id="navigation">
+		<p>
+			<b>
+				<a href="{% url Leaf.views.index %}">
+					Home
+				</a>
+			</b>
+		</p>
+		<p>
+			<b>
+				<a href="{% url Leaf.views.culling %}">
+					Culling
+				</a>
+			</b>
+		</p>
+		<p>
+			<b>
+				<a href="{% url Leaf.views.downloads %}">
+					Culled Lists and Source Code
+				</a>
+			</b>
+		</p>
+		<p>
+			<b>
+				<a href="{% url Leaf.views.contact %}">
+					Contact Information
+				</a>
+			</b>
+		</p>
+	</div>
+
+	<div id="content">
+		<center>
+			<p>
+			    <br>Culling a subset of the PDB allows you to select criteria (such as resolution, R-value, maximum permissible sequence identity, etc.) to use in culling, and 
+			    enables you to specify a subset of the PDB that you want to perform the culling on. The subset can be generated from user uploaded chains/entries, or all the chains/entries of a specified organism.<br>
+			    <br>Culling user submitted sequences allows you to upload protein sequences in FASTA format, and specifiy the maximum permissible sequence identity 
+			    and minimum and maxium values for the protein sequence length.<br>
+			</p>
+			<form enctype="multipart/form-data" action="{% url Leaf.views.cullingchoice %}" method="post">
+				{% csrf_token %}
+				<table align='center' border='0'>
+<!--					<tr>
+						<td>
+							<input type="radio" name="choiceMade" align="left" value="wholePDB" checked="checked"/><b>Whole PDB</b><br />
+						</td>
+					</tr>
+-->
+					<tr>
+						<td>
+							<input type="radio" name="choiceMade" align="left" value="userPDB" checked="checked"/><b>User Subset of PDB</b><br />
+						</td>
+					</tr>
+					<tr>
+						<td>
+							<input type="radio" name="choiceMade" align="left" value="userSeq"/><b>User Sequence Culling</b><br />
+						</td>
+					</tr>
+				</table>
+				<p>
+					<input type="submit" value="Submit" />
+				</p>
+			</form>
+		</center>
+	</div>
+
+	<div id="footer">
+		<p>Last updated <!-- #BeginDate format:Am1 -->July 16, 2012<!-- #EndDate -->.</p>
+	</div>
+
+</body>
+
+</html>

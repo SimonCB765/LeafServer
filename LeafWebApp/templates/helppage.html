@@ -1,0 +1,619 @@
+
+
+<html>
+
+<head>
+
+	<title>Leaf Protein Culling Server</title>
+	<LINK REL=StyleSheet href="{{ MEDIA_URL }}style.css" TYPE="text/css">
+
+</head>
+
+<body>
+
+	<div id="header">
+		<h1>Leaf Protein Culling Server</h1>
+	</div>
+
+	<div id="helpnavigation">
+		<p>
+			<b>
+				<a href="{% url Leaf.views.index %}">
+					Home
+				</a>
+			</b>
+		</p>
+		<p>
+			<b>
+				<a href="{% url Leaf.views.culling %}">
+					Culling
+				</a>
+			</b>
+		</p>
+		<p>
+			<b>
+				<a href="{% url Leaf.views.downloads %}">
+					Culled Lists and Source Code
+				</a>
+			</b>
+		</p>
+		<p>
+			<b>
+				<a href="{% url Leaf.views.contact %}">
+					Contact Information
+				</a>
+			</b>
+		</p>
+	</div>
+
+	<div id="helpcontent">
+              <a name="UserSequenceCulling"></a>
+		<h2>User Sequence Culling</h2>
+		<p>
+			<ul>
+				<li>A maximum of 500 sequences are accepted when using the textbox or file upload.</li>
+				<li>Any file uploaded should be in plain text format. For example, do not create and submit a Microsoft Word format file.</li>
+				<li>The expected format of the file upload/textbox sequences is:<br>
+					>Protein A Identifier<br>
+					SEQUENCEFORPROTEINAONONELINE<br>
+					>Protein B Identifier<br>
+					SEQUENCEFORPROTEINBONONELINE<br>
+					The protein identifier must all be on one line, and the line must start with a '>'. Any number of characters can follow the '>', 
+					and there are no restrictions on the characters that are permitted. The protein identifier is taken to be every character after the '>' 
+					up to, but not including, the end of line character.<br>
+					The sequence for the protein is expected to be in all capital letters, and occur on the first line after the identitifier line. 
+					However, the seqeunce can occur over multiple lines and contain lower case letters. The input will simply be converted to the expected format.
+				</li>
+				<li>
+					The percentage sequence identity submitted will be taken to be the maximum sequence identity permissible. 
+					For example, if 20% sequence identity is chosen, there will be no proteins with greater than 20% sequence 
+					identity in the non-redundant set. The percentage must be greater than or equal to 5, and less than 100.
+				</li>
+				<li>
+					The minimum and maximum lengths are optional, and are used to ensure that no sequences have fewer amino 
+					acids than the minimum length provided or more amino acids than the maximum length provided. If both a 
+					minimum and a maximum are specified, then the maximum can not be less than the minimum.
+				</li>
+			</ul>
+		</p>
+		<hr>
+              <a name="PDBSubsetCulling"></a>
+		<h2>PDB Subset Culling</h2>
+		<p>
+			<ul>
+				<li>
+					Only one of pasting chains/entries to cull, selecting an organism to cull from, entering an organism 
+					to cull from or uploading a file of chains/entries to cull is permitted.
+				</li>
+				<li>
+					The organism entry is case insensitive, but the name entered must match exactly that used by the 
+					PDB.
+				</li>
+				<li>Any file uploaded should be in plain text format. For example, do not create and submit a Microsoft Word format file.</li>
+				<li>The expected format for the pasted/uploaded PDB chains/entries to cull is to have one chain/entry on a line, with no additional whitesapce on the line.</li>
+				<li>
+					The percentage sequence identity submitted will be taken to be the maximum sequence identity permissible. 
+					For example, if 20% sequence identity is chosen, there will be no chains/entries with greater than 20% 
+					sequence identity in the non-redundant set. The percentage must be greater than or equal to 5, and less than 100.
+				</li>
+				<li>
+					The minimum and maximum resolution are used to ensure that all chains/entries in the non-redundant dataset 
+					have a resolution within the user specified range. The permissible range of values for the minimum and maximum resolution is 0-100. 
+					The minimum resolution can not be greater than the maximum.
+				</li>
+				<li>
+					The maximum R value is used to ensure that all chains/entries in the non-redundant dataset have an R value 
+					no greater than the maximum specified. The permissible range of values for the R value is 0-1.
+				</li>
+				<li>
+					If skip non-X-ray entries is chosen, then only those chains/entries that have X-ray diffraction recorded  
+					as their experimental type will be present in the non-redundant dataset.
+				</li>
+				<li>
+					If skip alpha carbon only entries is chosen, then chains/entries that only have alpha carbon atoms will 
+					not be present in the non-redundant dataset.
+				</li>
+				<li>
+					The two methods of culling the PDB are 'by chain' and 'by entry'. Please see 
+					<a href="http://www.ncbi.nlm.nih.gov/pmc/articles/PMC1160163/">PISCES</a> for a description of the 
+					differences between the two methods.
+				</li>
+				<li>
+					The within entry percentage sequence identity is used when culling chains within entries. A value of 20% 
+					will ensure that no two chains from the same entry with greater than 20% sequence identity are kept in 
+					the non-redundant dataset. Within entry culling is performed only if 'by entry' culling is selected. 
+					Please see <a href="http://www.ncbi.nlm.nih.gov/pmc/articles/PMC1160163/">PISCES</a> for a description 
+					of the within entry culling. 
+				</li>
+				<li>
+					The minimum and maximum lengths are optional, and are used to ensure that no sequences have fewer amino 
+					acids than the minimum length provided or more amino acids than the maximum length provided. If both a 
+					minimum and a maximum are specified, then the maximum can not be less than the minimum.
+				</li>
+			</ul>
+		</p>
+<!--		<hr>
+              <a name="WholePDBCulling"></a>
+		<h2>Whole PDB Culling</h2>
+		<p>
+			<ul>
+				<li>
+					The percentage sequence identity submitted will be taken to be the maximum sequence identity permissible. 
+					For example, if 20% sequence identity is chosen, there will be no chains/entries with greater than 20% 
+					sequence identity in the non-redundant set. The percentage must be greater than or equal to 5, and less than 100.
+				</li>
+				<li>
+					The minimum and maximum resolution are used to ensure that all chains/entries in the non-redundant dataset 
+					have a resolution within the user specified range. The permissible range of values for the minimum and maximum resolution is 0-100. 
+					The minimum resolution can not be greater than the maximum.
+				</li>
+				<li>
+					The maximum R value is used to ensure that all chains/entries in the non-redundant dataset have an R value 
+					no greater than the maximum specified. The permissible range of values for the R value is 0-1.
+				</li>
+				<li>
+					If skip non-X-ray entries is chosen, then only those chains/entries that have X-ray diffraction recorded  
+					as their experimental type will be present in the non-redundant dataset.
+				</li>
+				<li>
+					If skip alpha carbon only entries is chosen, then chains/entries that only have alpha carbon atoms will 
+					not be present in the non-redundant dataset.
+				</li>
+				<li>
+					The two methods of culling the PDB are 'by chain' and 'by entry'. Please see 
+					<a href="http://www.ncbi.nlm.nih.gov/pmc/articles/PMC1160163/">PISCES</a> for a description of the 
+					differences between the two methods.
+				</li>
+				<li>
+					The within entry percentage sequence identity is used when culling chains within entries. A value of 20% 
+					will ensure that no two chains from the same entry with greater than 20% sequence identity are kept in 
+					the non-redundant dataset. Within entry culling is performed only if 'by entry' culling is selected. 
+					Please see <a href="http://www.ncbi.nlm.nih.gov/pmc/articles/PMC1160163/">PISCES</a> for a description 
+					of the within entry culling. 
+				</li>
+				<li>
+					The minimum and maximum lengths are optional, and are used to ensure that no sequences have fewer amino 
+					acids than the minimum length provided or more amino acids than the maximum length provided. If both a 
+					minimum and a maximum are specified, then the maximum can not be less than the minimum.
+				</li>
+			</ul>
+		</p>
+-->
+              <hr>
+              <a name="ResultsDescription"></a>
+		<h2>Description of Results Files</h2>
+		<p>
+			See <b><a href="{% url Leaf.views.help_page %}#DataCollection">here</a></b> for more information about the extraction of the data from the PDB, experimental abbreviations, etc.<br>
+			<ul>
+				<li>
+					PDB Results
+					<ul>
+						<li>
+							User Input<!-- (not present if culling from the whole PDB was performed)-->
+							<ul>
+								<li>A list of the chains/entries submitted by the user, with one chain/entry on each line.</li>
+							</ul>
+						</li>
+					</ul>
+					<ul>
+						<li>
+							Input Sequences Removed
+							<ul>
+								<li>A list of the redundant chains/entries from <!--either the whole PDB or -->the user input, with one chain/entry on each line.</li>
+							</ul>
+						</li>
+					</ul>
+					<ul>
+						<li>
+							Non-redundant Sequence Statistics
+							<ul>
+								<li>A table of information about the non-redundnat chains/entries submitted by the user.</li>
+								<li>Each line contains six values separated by tabs ('\t').</li>
+								<li>
+									The values (from left to right) are as follows: the name of the chain/entry, the length (in amino acids) of the chain/entry (the length of an entry is the length of a random chain in the entry), 
+									the abbreviation for the experimental method used to determine the structure, the resolution of the structure, the R-value and the free R-value.
+								</li>
+							</ul>
+						</li>
+					</ul>
+					<ul>
+						<li>
+							Non-redundant Sequences
+							<ul>
+								<li>A FASTA format file of the chains in the non-redundant dataset.</li>
+								<li>If cull by entry was selected, then this file contains all the chains in each non-redundnat entry that were not removed by intra-entry culling of chains.</li>
+								<li>Each chain is represented by two consecutive lines in the file.</li>
+								<li>First is an identifier line for the chain, followed by the sequence of the chain in all capital letters.</li>
+								<li>
+									The identifier line begins with a '>', and the values (from left to right) are: ChainID, 
+									ChainLength, ExperimentalMethodAbrv, Resolution, R-value, FreeR-value, AlphaCarbonOnly, ChainDescription, &#60DBCode DBIdentifier&#62 and [OrganismName].
+								</li>
+								<li>Tabs separate the values on the line.</li>
+								<li>There may be additional whitespace in the ChainDescription.</li>
+								<li>AlphaCarbonOnly is 'no' if the chain structure is not purely composed of alpha carbon atoms.</li>
+								<li>
+									The DBCode is the code used by the PDB to record an external database where information about the chain can be found (e.g. UNP for UniProt), and the 
+									DBIdentifier is the identifier used to locate the chain in the external database (e.g. VAV_MOUSE).
+								</li>
+								<li>
+									The OrganismName is case insensitive, and appears exactly as it was recorded in the PDB (e.g. Mus musculus and MUS MUSCULUS may both appear). It always
+									consists of the genus and species of the organism separated by a space.
+								</li>
+							</ul>
+						</li>
+					</ul>
+				</li>
+				<li>
+					User Culling Results
+					<ul>
+						<li>
+							User Input
+							<ul>
+								<li>The sequences uploaded by the user, in FASTA format</li>
+							</ul>
+						</li>
+					</ul>
+					<ul>
+						<li>
+							Input Sequences Removed
+							<ul>
+								<li>A list of the input proteins that are redundant.</li>
+							</ul>
+						</li>
+					</ul>
+					<ul>
+						<li>
+							Non-redundant Sequence Statistics
+							<ul>
+								<li>A table of information about the non-redundant input proteins.</li>
+								<li>The two columns are separated by tabs ('\t').</li>
+								<li>The first column contains protein identifiers, and the second contains the length of the proteins.</li>
+							</ul>
+						</li>
+					</ul>
+					<ul>
+						<li>
+							Non-redundant Sequences
+							<ul>
+								<li>A FASTA fromat file of the non-redundant input proteins.</li>
+							</ul>
+						</li>
+					</ul>
+				</li>
+			</ul>
+              </p>
+		<hr>
+              <a name="PdbaaGeneration"></a>
+		<h2>Pdbaa Datasets</h2>
+		<p>
+			The format of the pdbaa files is to have a one line description of the protein chains, with the entire protein sequence on the following line in capital letters. 
+			The desctiption line for each chain follows a standard format. Each element of the description is separated from the next by a tab ('\t') character. There are always 
+			at least ten elements on each description line. The first element (following right after the leading '>') is the chain identifier. The next six elements are the length 
+			of the protein sequence, the experimental method used to determine the structure, the resolution of the structure, the R value, the free R value and whether the structure
+			is composed purely of alpha carbon atoms ('yes' if true, 'no' if false). The next element is the description of the chain recorded in the PDB. The description may contain
+			whitespace, but will not contain any tabs. Following the description comes information about an external database where the chain can be found. The format for this is 
+			<dbCode dbID>, with the dbCode being the abbreviation for the external database (e.g. UNP for UniProt), and the dbID being the identifier of the chain in the external database. 
+			The final standard element is the name of the organism that the protein chain comes from. The format for this is [genus species]. The recording of the genus and species comes 
+			directly from the PDB, and therfore the case of the words is unkown (for example both MUS MUSCULUS and Mus musculus can be found).<br><br>
+                     In the pdbaaent and pdbaanr files there is the possiblity for further elements. This only occurs when the chain in the file is the representative chain for other chains. 
+			In this case there is an eleventh element on the description line. This element is '||', and is separated from the scientific name of the organism by a tab. Following the '||', 
+			is a list of the chains which the chain in the file represetns, all separated by tabs. For example, 1KFGB, 1KFGA, 1K72B, 1K72A and 1GA2B all have the same sequence as 1GA2A, 
+			and therefore the description line for 1GA2A in pdbaanr has the following at the end of it:<br>
+			<pre>[Genus species]	||	1KFGB	1KFGA	1K72B	1K72A	1GA2B</pre>
+			<br>
+			The representative chains for pdbaaent and pdbaanr are determined as follows:
+			<ul>
+				<li>Collect all chains with the same sequences.</li>
+				<ul>
+					<li>For pdbaaent this is done separately for each entry. For example, only the chains within the 1GA2 entry are searched, and therefore 1GA2A is only deemed to be identical to 1GA2B.</li>
+					<li>For pdbaanr this is done over the entire set of PDB entries. This means that 1GA2A, 1GA2B, 1KFGA, 1KFGB, 1K72A and 1K72B are all deemed to be identical.</li>
+				</ul>
+				<li>Determine the resolution, R value and experimental method used for each chain.</li>
+				<li>For each set of identical chains, select the representative chains as follows:</li>
+				<ol>
+					<li>
+						Determine if there are any chains which had their structure determined by X-ray diffraction. If there is only one X-ray chain, then it is the representative. 
+						If there is more than one X-ray chain, then discard the non-X-ray chains from consideration, and go to step 2. If there are no X-ray chains, then go to step 2.
+					</li>
+					<li>
+						Discard all chains that do not have the highest resolution structure. If there is only one chain remaining, then it is the represetnative chain. 
+						If there is more than one chain remaining, go to step 3.
+					</li>
+					<li>
+						Discard all remaining chains that do not have the best (lowest) R value. If there is only one chain remaining, then it is the represetnative chain. 
+						If there is more than one chain remaining, go to step 4.
+					</li>
+					<li>Order the remaining chains alphanumerically, and select the 'smallest' chain in this ordering (for example, select 1GA2A over 1GA2B).</li>
+				</ol>
+			</ul>
+		</p>
+		<hr>
+              <a name="DataCollection"></a>
+		<h2>Method of Data Collection</h2>
+		<p>
+			<ul>
+				<li>
+					If 50% or more of the amino acids in an amino acid sequence are X, then the entity is marked as a NonProtein, 
+					and not included in the list of proteins.
+				</li>
+				<li>
+					When determining the value for the resolution:<br>
+					Only one of the _refine and _reflns records is used (with preference given to the _refine record).<br>
+					If there is no value present for the resolution, then the resolution is set to 100.<br>
+					Similariy if there is no value present for the R-value or the R-free value, then these values are set to 1.
+				</li>
+				<li>
+					When determining the organism which the entity originates from:<br>
+					Only one of _entity_src_gen, _entity_src_nat or _pdbx_entity_src_syn is used (with preference given in the order _entity_src_nat, _entity_src_gen and finally _pdbx_entity_src_syn).
+				</li>
+				<li>
+					Experimental Method Abbreviations
+					<ul>
+						<li>ELECTRON MICROSCOPY - EM</li>
+						<li>FIBER DIFFRACTION - FIBER</li>
+						<li>INFRARED SPECTROSCOPY - FTIR</li>
+						<li>NEUTRON DIFFRACTION - NEUTRON</li>
+						<li>SOLUTION NMR - NMR</li>
+						<li>SOLID-STATE NMR - NMR</li>
+						<li>POWDER DIFFRACTION - POWDER</li>
+						<li>X-RAY DIFFRACTION - XRAY</li>
+						<li>FLUORESCENCE TRANSFER - NA</li>
+						<li>ELECTRON CRYSTALLOGRAPHY - NA</li>
+						<li>SOLUTION SCATTERING - NA</li>
+						<li>Anything else is marked as NA.</li>
+					</ul>
+				<li>
+					The following are the mmCIF headings and subheadings that were used to collect the data for the PDB entries.
+					<ul>
+						<li>
+							_entry
+							<ul>
+								<li>
+									_entry.id
+									<ul>
+										<li>
+											Used to determine the name of the PDB entry (e.g. 3A0B).
+										</li>
+									</ul>
+								</li>
+							</ul>
+						</li>
+						<li>
+							_entity
+							<ul>
+								<li>
+									_entity.id
+									<ul>
+										<li>
+											The numeric identifier used to identify the specific entity within the entry record.
+										</li>
+									</ul>
+								</li>
+								<li>
+									_entity.pdbx_description
+									<ul>
+										<li>
+											A description of the entity.
+										</li>
+									</ul>
+								</li>
+							</ul>
+						</li>
+						<li>
+							_entity_poly
+							<ul>
+								<li>
+									_entity_poly.entity_id
+									<ul>
+										<li>
+											Used to determine the entity that the rest of the _entity_poly information pertains to.
+										</li>
+									</ul>
+								</li>
+								<li>
+									_entity_poly.type
+									<ul>
+										<li>
+											Used to determine the type of the entity (e.g. polypeptide(L)).
+										</li>
+									</ul>
+								</li>
+								<li>
+									_entity_poly.pdbx_seq_one_letter_code_can
+									<ul>
+										<li>
+											Used to determine the nucleotide or amino acid sequence of the entity.
+										</li>
+									</ul>
+								</li>
+								<li>
+									_entity_poly.pdbx_strand_id
+									<ul>
+										<li>
+											Used to determine the single character codes corresponding to the entity (the 'a', 'A', 'b', '1', etc. that comes after the entry e.g. 3A0Ba, 3A0BA, ...).
+										</li>
+									</ul>
+								</li>
+							</ul>
+						</li>
+						<li>
+							_exptl
+							<ul>
+								<li>
+									_exptl.method
+									<ul>
+										<li>
+											The experimental method that was used to determine the structure.
+										</li>
+									</ul>
+								</li>
+							</ul>
+						</li>
+						<li>
+							_atom_site
+							<ul>
+								<li>
+									_atom_site.label_atom_id
+									<ul>
+										<li>
+											Records the type of atom. Used to determine if the entity contains only alpha carbon atoms.
+										</li>
+									</ul>
+								</li>
+								<li>
+									_atom_site.label_entity_id
+									<ul>
+										<li>
+											Used to determine the entity that the rest of the _atom_site information pertains to.
+										</li>
+									</ul>
+								</li>
+							</ul>
+						</li>
+						<li>
+							_refine
+							<ul>
+								<li>
+									_refine.ls_d_res_high
+									<ul>
+										<li>
+											Used to determine the resolution of the structure in an X-ray diffraction experiment.
+										</li>
+									</ul>
+								</li>
+								<li>
+									_refine.ls_R_factor_obs
+									<ul>
+										<li>
+											Used to determine the R-value. This is the R-value measurement used when giving an upper bound on the R-value during culling.
+										</li>
+									</ul>
+								</li>
+								<li>
+									_refine.ls_R_factor_R_free
+									<ul>
+										<li>
+											Used to determine the R-free value.
+										</li>
+									</ul>
+								</li>
+							</ul>
+						</li>
+						<li>
+							_reflns
+							<ul>
+								<li>
+									_reflns.d_resolution_high
+									<ul>
+										<li>
+											Used to determine the resolution of the structure in an X-ray diffraction experiment.
+										</li>
+									</ul>
+								</li>
+							</ul>
+						</li>
+						<li>
+							_struct_ref
+							<ul>
+								<li>
+									_struct_ref.entity_id
+									<ul>
+										<li>
+											Used to determine the entity that the rest of the _struct_ref information pertains to.
+										</li>
+									</ul>
+								</li>
+								<li>
+									_struct_ref.db_name
+									<ul>
+										<li>
+											Used to determine the name of the external database linked to the entity.
+										</li>
+									</ul>
+								</li>
+								<li>
+									_struct_ref.db_code
+									<ul>
+										<li>
+											Used to determine the code which can be used to access information about the entity in the external database
+										</li>
+									</ul>
+								</li>
+							</ul>
+						</li>
+						<li>
+							_entity_src_gen
+							<ul>
+								<li>
+									_entity_src_gen.entity_id
+									<ul>
+										<li>
+											Used to determine the entity that the rest of the _entity_src_gen information pertains to.
+										</li>
+									</ul>
+								</li>
+								<li>
+									_entity_src_gen.pdbx_gene_src_scientific_name
+									<ul>
+										<li>
+											Used to determine the scientific name of the organism that the entity came from.
+										</li>
+									</ul>
+								</li>
+							</ul>
+						</li>
+						<li>
+							_entity_src_nat
+							<ul>
+								<li>
+									_entity_src_nat.entity_id
+									<ul>
+										<li>
+											Used to determine the entity that the rest of the _entity_src_nat information pertains to.
+										</li>
+									</ul>
+								</li>
+								<li>
+									_entity_src_nat.pdbx_organism_scientific
+									<ul>
+										<li>
+											Used to determine the scientific name of the organism that the entity came from.
+										</li>
+									</ul>
+								</li>
+							</ul>
+						</li>
+						<li>
+							_pdbx_entity_src_syn
+							<ul>
+								<li>
+									_pdbx_entity_src_syn.entity_id
+									<ul>
+										<li>
+											Used to determine the entity that the rest of the _pdbx_entity_src_syn information pertains to.
+										</li>
+									</ul>
+								</li>
+								<li>
+									_pdbx_entity_src_syn.organism_scientific
+									<ul>
+										<li>
+											Used to determine the scientific name of the organism that the entity came from.	
+										</li>
+									</ul>
+								</li>
+							</ul>
+						</li>
+					</ul>
+				</li>
+			</ul>
+		</p>
+	</div>
+
+	<div id="footer">
+		<p>Last updated <!-- #BeginDate format:Am1 -->July 16, 2012<!-- #EndDate -->.</p>
+	</div>
+
+</body>
+
+</html>

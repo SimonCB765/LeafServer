@@ -1,0 +1,1062 @@
+
+
+<html>
+
+<head>
+
+	<title>Leaf Protein Culling Server</title>
+	<LINK REL=StyleSheet href="{{ MEDIA_URL }}style.css" TYPE="text/css">
+
+</head>
+
+<body>
+
+	<div id="header">
+		<h1>Leaf Protein Culling Server</h1>
+	</div>
+
+	<div id="downloadnavigation">
+		<p>
+			<b>
+				<a href="{% url Leaf.views.index %}">
+					Home
+				</a>
+			</b>
+		</p>
+		<p>
+			<b>
+				<a href="{% url Leaf.views.culling %}">
+					Culling
+				</a>
+			</b>
+		</p>
+		<p>
+			<b>
+				<a href="{% url Leaf.views.downloads %}">
+					Culled Lists and Source Code
+				</a>
+			</b>
+		</p>
+		<p>
+			<b>
+				<a href="{% url Leaf.views.contact %}">
+					Contact Information
+				</a>
+			</b>
+		</p>
+	</div>
+
+	<div id="downloadcontent">
+		<p align="center">
+			<font size="6"><b>The culled lists were last updated on the {{ modifyDate }}</b></font>
+		</p>
+		<hr>
+		<p>
+			Jump to the culled lists for 
+			<a href="#20">20%</a>,
+			<a href="#25">25%</a>, 
+			<a href="#30">30%</a>, 
+			<a href="#40">40%</a>, 
+			<a href="#50">50%</a>, 
+			<a href="#60">60%</a>, 
+			<a href="#70">70%</a>, 
+			<a href="#80">80%</a> or 
+			<a href="#90">90%</a> sequence identity. 
+		</p>
+		<a href="#pdbaa">Downloadable representations of the entire PDB</a>
+		<br />
+		<a href="#ModelOrganisms">Model organism datasets</a>
+		<br />
+		<a href="#SourceCode">Downloadable source code for running Leaf locally</a>
+		<hr>
+		<h2>Pre-culled Datasets</h2>
+		<p>
+			This page provides downloads for non-redundant datasets, generated using a variety of structural criteria.<br>
+			<br>If you want to generate a non-redundant dataset using different structural criteria, this can be done by generating a <b><a href="{% url Leaf.views.culling %}">user requested dataset</a></b>.<br>
+			<br>The name of each download follows a defined format. The format is: SeqIden_X_Res_Y_RVal_Z. X is the percentage sequence identity threshold used. This means that if 
+			X is 20, then there are no two sequences in the non-redundant dataset witha  pairwise sequence idenitty greater than 20%. Y is the maximum resolution of the protein structure. 
+			Z is the maximum R value. If the name of the download ends in INCLNONXRAY_INCLCAONLY, then the dataset from which the redundancy was removed contained non-X-ray structures, and 
+			chains where the strucutre contains only backbone alpha carbon atoms.<br>
+			<br>The non-redundant dataset is recorded in a FASTA file, with the same format as the FASTA files returned by the user generated redundancy removal. The format of the files 
+			can be found <b><a href="{% url Leaf.views.help_page %}#PdbaaGeneration">here</a></b>, ignoring the portion about the pdbaaent dataset, pdbaanr dataset and representative sequences.
+		</p>
+		<a name="20"></a>
+		<p align="center">
+			<b>20% Sequence Identity</b>
+		</p>
+		<table align="center" border=1 cellspacing=2 cellpadding=2>
+			<tr>
+				<td>
+					<a href={{ currentPage }}SeqIden_20_Res_1.6_RVal_0.25>
+						SeqIden_20_Res_1.6_RVal_0.25.gz
+					</a>
+				</td>
+				<td>
+					<a href={{ currentPage }}SeqIden_20_Res_1.6_RVal_1.0>
+						SeqIden_20_Res_1.6_RVal_1.0.gz
+					</a>
+				</td>
+			</tr>
+			<tr>
+				<td>
+					<a href={{ currentPage }}SeqIden_20_Res_1.8_RVal_0.25>
+						SeqIden_20_Res_1.8_RVal_0.25.gz
+					</a>
+				</td>
+				<td>
+					<a href={{ currentPage }}SeqIden_20_Res_1.8_RVal_1.0>
+						SeqIden_20_Res_1.8_RVal_1.0.gz
+					</a>
+				</td>
+			</tr>
+			<tr>
+				<td>
+					<a href={{ currentPage }}SeqIden_20_Res_2.0_RVal_0.25>
+						SeqIden_20_Res_2.0_RVal_0.25.gz
+					</a>
+				</td>
+				<td>
+					<a href={{ currentPage }}SeqIden_20_Res_2.0_RVal_1.0>
+						SeqIden_20_Res_2.0_RVal_1.0.gz
+					</a>
+				</td>
+			</tr>
+			<tr>
+				<td>
+					<a href={{ currentPage }}SeqIden_20_Res_2.2_RVal_0.25>
+						SeqIden_20_Res_2.2_RVal_0.25.gz
+					</a>
+				</td>
+				<td>
+					<a href={{ currentPage }}SeqIden_20_Res_2.2_RVal_1.0>
+						SeqIden_20_Res_2.2_RVal_1.0.gz
+					</a>
+				</td>
+			</tr>
+			<tr>
+				<td>
+					<a href={{ currentPage }}SeqIden_20_Res_2.5_RVal_0.25>
+						SeqIden_20_Res_2.5_RVal_0.25.gz
+					</a>
+				</td>
+				<td>
+					<a href={{ currentPage }}SeqIden_20_Res_2.5_RVal_1.0>
+						SeqIden_20_Res_2.5_RVal_1.0.gz
+					</a>
+				</td>
+			</tr>
+			<tr>
+				<td>
+					<a href={{ currentPage }}SeqIden_20_Res_3.0_RVal_0.25>
+						SeqIden_20_Res_3.0_RVal_0.25.gz
+					</a>
+				</td>
+				<td>
+					<a href={{ currentPage }}SeqIden_20_Res_3.0_RVal_1.0>
+						SeqIden_20_Res_3.0_RVal_1.0.gz
+					</a>
+				</td>
+			</tr>
+		</table>
+		<p align="center">
+			<a href={{ currentPage }}SeqIden_20_Res_100.0_RVal_1.0_INCLNONXRAY_INCLCAONLY>
+				SeqIden_20_Res_100.0_RVal_1.0_INCLNONXRAY_INCLCAONLY.gz
+			</a>
+		</p>
+		<br />
+		<a name="25"></a>
+		<p align="center">
+			<b>25% Sequence Identity</b>
+		</p>
+		<table align="center" border=1 cellspacing=2 cellpadding=2>
+			<tr>
+				<td>
+					<a href={{ currentPage }}SeqIden_25_Res_1.6_RVal_0.25>
+						SeqIden_25_Res_1.6_RVal_0.25.gz
+					</a>
+				</td>
+				<td>
+					<a href={{ currentPage }}SeqIden_25_Res_1.6_RVal_1.0>
+						SeqIden_25_Res_1.6_RVal_1.0.gz
+					</a>
+				</td>
+			</tr>
+			<tr>
+				<td>
+					<a href={{ currentPage }}SeqIden_25_Res_1.8_RVal_0.25>
+						SeqIden_25_Res_1.8_RVal_0.25.gz
+					</a>
+				</td>
+				<td>
+					<a href={{ currentPage }}SeqIden_25_Res_1.8_RVal_1.0>
+						SeqIden_25_Res_1.8_RVal_1.0.gz
+					</a>
+				</td>
+			</tr>
+			<tr>
+				<td>
+					<a href={{ currentPage }}SeqIden_25_Res_2.0_RVal_0.25>
+						SeqIden_25_Res_2.0_RVal_0.25.gz
+					</a>
+				</td>
+				<td>
+					<a href={{ currentPage }}SeqIden_25_Res_2.0_RVal_1.0>
+						SeqIden_25_Res_2.0_RVal_1.0.gz
+					</a>
+				</td>
+			</tr>
+			<tr>
+				<td>
+					<a href={{ currentPage }}SeqIden_25_Res_2.2_RVal_0.25>
+						SeqIden_25_Res_2.2_RVal_0.25.gz
+					</a>
+				</td>
+				<td>
+					<a href={{ currentPage }}SeqIden_25_Res_2.2_RVal_1.0>
+						SeqIden_25_Res_2.2_RVal_1.0.gz
+					</a>
+				</td>
+			</tr>
+			<tr>
+				<td>
+					<a href={{ currentPage }}SeqIden_25_Res_2.5_RVal_0.25>
+						SeqIden_25_Res_2.5_RVal_0.25.gz
+					</a>
+				</td>
+				<td>
+					<a href={{ currentPage }}SeqIden_25_Res_2.5_RVal_1.0>
+						SeqIden_25_Res_2.5_RVal_1.0.gz
+					</a>
+				</td>
+			</tr>
+			<tr>
+				<td>
+					<a href={{ currentPage }}SeqIden_25_Res_3.0_RVal_0.25>
+						SeqIden_25_Res_3.0_RVal_0.25.gz
+					</a>
+				</td>
+				<td>
+					<a href={{ currentPage }}SeqIden_25_Res_3.0_RVal_1.0>
+						SeqIden_25_Res_3.0_RVal_1.0.gz
+					</a>
+				</td>
+			</tr>
+		</table>
+		<p align="center">
+			<a href={{ currentPage }}SeqIden_25_Res_100.0_RVal_1.0_INCLNONXRAY_INCLCAONLY>
+				SeqIden_25_Res_100.0_RVal_1.0_INCLNONXRAY_INCLCAONLY.gz
+			</a>
+		</p>
+		<br />
+		<a name="30"></a>
+		<p align="center">
+			<b>30% Sequence Identity</b>
+		</p>
+		<table align="center" border=1 cellspacing=2 cellpadding=2>
+			<tr>
+				<td>
+					<a href={{ currentPage }}SeqIden_30_Res_1.6_RVal_0.25>
+						SeqIden_30_Res_1.6_RVal_0.25.gz
+					</a>
+				</td>
+				<td>
+					<a href={{ currentPage }}SeqIden_30_Res_1.6_RVal_1.0>
+						SeqIden_30_Res_1.6_RVal_1.0.gz
+					</a>
+				</td>
+			</tr>
+			<tr>
+				<td>
+					<a href={{ currentPage }}SeqIden_30_Res_1.8_RVal_0.25>
+						SeqIden_30_Res_1.8_RVal_0.25.gz
+					</a>
+				</td>
+				<td>
+					<a href={{ currentPage }}SeqIden_30_Res_1.8_RVal_1.0>
+						SeqIden_30_Res_1.8_RVal_1.0.gz
+					</a>
+				</td>
+			</tr>
+			<tr>
+				<td>
+					<a href={{ currentPage }}SeqIden_30_Res_2.0_RVal_0.25>
+						SeqIden_30_Res_2.0_RVal_0.25.gz
+					</a>
+				</td>
+				<td>
+					<a href={{ currentPage }}SeqIden_30_Res_2.0_RVal_1.0>
+						SeqIden_30_Res_2.0_RVal_1.0.gz
+					</a>
+				</td>
+			</tr>
+			<tr>
+				<td>
+					<a href={{ currentPage }}SeqIden_30_Res_2.2_RVal_0.25>
+						SeqIden_30_Res_2.2_RVal_0.25.gz
+					</a>
+				</td>
+				<td>
+					<a href={{ currentPage }}SeqIden_30_Res_2.2_RVal_1.0>
+						SeqIden_30_Res_2.2_RVal_1.0.gz
+					</a>
+				</td>
+			</tr>
+			<tr>
+				<td>
+					<a href={{ currentPage }}SeqIden_30_Res_2.5_RVal_0.25>
+						SeqIden_30_Res_2.5_RVal_0.25.gz
+					</a>
+				</td>
+				<td>
+					<a href={{ currentPage }}SeqIden_30_Res_2.5_RVal_1.0>
+						SeqIden_30_Res_2.5_RVal_1.0.gz
+					</a>
+				</td>
+			</tr>
+			<tr>
+				<td>
+					<a href={{ currentPage }}SeqIden_30_Res_3.0_RVal_0.25>
+						SeqIden_30_Res_3.0_RVal_0.25.gz
+					</a>
+				</td>
+				<td>
+					<a href={{ currentPage }}SeqIden_30_Res_3.0_RVal_1.0>
+						SeqIden_30_Res_3.0_RVal_1.0.gz
+					</a>
+				</td>
+			</tr>
+		</table>
+		<p align="center">
+			<a href={{ currentPage }}SeqIden_30_Res_100.0_RVal_1.0_INCLNONXRAY_INCLCAONLY>
+				SeqIden_30_Res_100.0_RVal_1.0_INCLNONXRAY_INCLCAONLY.gz
+			</a>
+		</p>
+		<br />
+		<a name="40"></a>
+		<p align="center">
+			<b>40% Sequence Identity</b>
+		</p>
+		<table align="center" border=1 cellspacing=2 cellpadding=2>
+			<tr>
+				<td>
+					<a href={{ currentPage }}SeqIden_40_Res_1.6_RVal_0.25>
+						SeqIden_40_Res_1.6_RVal_0.25.gz
+					</a>
+				</td>
+				<td>
+					<a href={{ currentPage }}SeqIden_40_Res_1.6_RVal_1.0>
+						SeqIden_40_Res_1.6_RVal_1.0.gz
+					</a>
+				</td>
+			</tr>
+			<tr>
+				<td>
+					<a href={{ currentPage }}SeqIden_40_Res_1.8_RVal_0.25>
+						SeqIden_40_Res_1.8_RVal_0.25.gz
+					</a>
+				</td>
+				<td>
+					<a href={{ currentPage }}SeqIden_40_Res_1.8_RVal_1.0>
+						SeqIden_40_Res_1.8_RVal_1.0.gz
+					</a>
+				</td>
+			</tr>
+			<tr>
+				<td>
+					<a href={{ currentPage }}SeqIden_40_Res_2.0_RVal_0.25>
+						SeqIden_40_Res_2.0_RVal_0.25.gz
+					</a>
+				</td>
+				<td>
+					<a href={{ currentPage }}SeqIden_40_Res_2.0_RVal_1.0>
+						SeqIden_40_Res_2.0_RVal_1.0.gz
+					</a>
+				</td>
+			</tr>
+			<tr>
+				<td>
+					<a href={{ currentPage }}SeqIden_40_Res_2.2_RVal_0.25>
+						SeqIden_40_Res_2.2_RVal_0.25.gz
+					</a>
+				</td>
+				<td>
+					<a href={{ currentPage }}SeqIden_40_Res_2.2_RVal_1.0>
+						SeqIden_40_Res_2.2_RVal_1.0.gz
+					</a>
+				</td>
+			</tr>
+			<tr>
+				<td>
+					<a href={{ currentPage }}SeqIden_40_Res_2.5_RVal_0.25>
+						SeqIden_40_Res_2.5_RVal_0.25.gz
+					</a>
+				</td>
+				<td>
+					<a href={{ currentPage }}SeqIden_40_Res_2.5_RVal_1.0>
+						SeqIden_40_Res_2.5_RVal_1.0.gz
+					</a>
+				</td>
+			</tr>
+			<tr>
+				<td>
+					<a href={{ currentPage }}SeqIden_40_Res_3.0_RVal_0.25>
+						SeqIden_40_Res_3.0_RVal_0.25.gz
+					</a>
+				</td>
+				<td>
+					<a href={{ currentPage }}SeqIden_40_Res_3.0_RVal_1.0>
+						SeqIden_40_Res_3.0_RVal_1.0.gz
+					</a>
+				</td>
+			</tr>
+		</table>
+		<p align="center">
+			<a href={{ currentPage }}SeqIden_40_Res_100.0_RVal_1.0_INCLNONXRAY_INCLCAONLY>
+				SeqIden_40_Res_100.0_RVal_1.0_INCLNONXRAY_INCLCAONLY.gz
+			</a>
+		</p>
+		<br />
+		<a name="50"></a>
+		<p align="center">
+			<b>50% Sequence Identity</b>
+		</p>
+		<table align="center" border=1 cellspacing=2 cellpadding=2>
+			<tr>
+				<td>
+					<a href={{ currentPage }}SeqIden_50_Res_1.6_RVal_0.25>
+						SeqIden_50_Res_1.6_RVal_0.25.gz
+					</a>
+				</td>
+				<td>
+					<a href={{ currentPage }}SeqIden_50_Res_1.6_RVal_1.0>
+						SeqIden_50_Res_1.6_RVal_1.0.gz
+					</a>
+				</td>
+			</tr>
+			<tr>
+				<td>
+					<a href={{ currentPage }}SeqIden_50_Res_1.8_RVal_0.25>
+						SeqIden_50_Res_1.8_RVal_0.25.gz
+					</a>
+				</td>
+				<td>
+					<a href={{ currentPage }}SeqIden_50_Res_1.8_RVal_1.0>
+						SeqIden_50_Res_1.8_RVal_1.0.gz
+					</a>
+				</td>
+			</tr>
+			<tr>
+				<td>
+					<a href={{ currentPage }}SeqIden_50_Res_2.0_RVal_0.25>
+						SeqIden_50_Res_2.0_RVal_0.25.gz
+					</a>
+				</td>
+				<td>
+					<a href={{ currentPage }}SeqIden_50_Res_2.0_RVal_1.0>
+						SeqIden_50_Res_2.0_RVal_1.0.gz
+					</a>
+				</td>
+			</tr>
+			<tr>
+				<td>
+					<a href={{ currentPage }}SeqIden_50_Res_2.2_RVal_0.25>
+						SeqIden_50_Res_2.2_RVal_0.25.gz
+					</a>
+				</td>
+				<td>
+					<a href={{ currentPage }}SeqIden_50_Res_2.2_RVal_1.0>
+						SeqIden_50_Res_2.2_RVal_1.0.gz
+					</a>
+				</td>
+			</tr>
+			<tr>
+				<td>
+					<a href={{ currentPage }}SeqIden_50_Res_2.5_RVal_0.25>
+						SeqIden_50_Res_2.5_RVal_0.25.gz
+					</a>
+				</td>
+				<td>
+					<a href={{ currentPage }}SeqIden_50_Res_2.5_RVal_1.0>
+						SeqIden_50_Res_2.5_RVal_1.0.gz
+					</a>
+				</td>
+			</tr>
+			<tr>
+				<td>
+					<a href={{ currentPage }}SeqIden_50_Res_3.0_RVal_0.25>
+						SeqIden_50_Res_3.0_RVal_0.25.gz
+					</a>
+				</td>
+				<td>
+					<a href={{ currentPage }}SeqIden_50_Res_3.0_RVal_1.0>
+						SeqIden_50_Res_3.0_RVal_1.0.gz
+					</a>
+				</td>
+			</tr>
+		</table>
+		<p align="center">
+			<a href={{ currentPage }}SeqIden_50_Res_100.0_RVal_1.0_INCLNONXRAY_INCLCAONLY>
+				SeqIden_50_Res_100.0_RVal_1.0_INCLNONXRAY_INCLCAONLY.gz
+			</a>
+		</p>
+		<br />
+		<a name="60"></a>
+		<p align="center">
+			<b>60% Sequence Identity</b>
+		</p>
+		<table align="center" border=1 cellspacing=2 cellpadding=2>
+			<tr>
+				<td>
+					<a href={{ currentPage }}SeqIden_60_Res_1.6_RVal_0.25>
+						SeqIden_60_Res_1.6_RVal_0.25.gz
+					</a>
+				</td>
+				<td>
+					<a href={{ currentPage }}SeqIden_60_Res_1.6_RVal_1.0>
+						SeqIden_60_Res_1.6_RVal_1.0.gz
+					</a>
+				</td>
+			</tr>
+			<tr>
+				<td>
+					<a href={{ currentPage }}SeqIden_60_Res_1.8_RVal_0.25>
+						SeqIden_60_Res_1.8_RVal_0.25.gz
+					</a>
+				</td>
+				<td>
+					<a href={{ currentPage }}SeqIden_60_Res_1.8_RVal_1.0>
+						SeqIden_60_Res_1.8_RVal_1.0.gz
+					</a>
+				</td>
+			</tr>
+			<tr>
+				<td>
+					<a href={{ currentPage }}SeqIden_60_Res_2.0_RVal_0.25>
+						SeqIden_60_Res_2.0_RVal_0.25.gz
+					</a>
+				</td>
+				<td>
+					<a href={{ currentPage }}SeqIden_60_Res_2.0_RVal_1.0>
+						SeqIden_60_Res_2.0_RVal_1.0.gz
+					</a>
+				</td>
+			</tr>
+			<tr>
+				<td>
+					<a href={{ currentPage }}SeqIden_60_Res_2.2_RVal_0.25>
+						SeqIden_60_Res_2.2_RVal_0.25.gz
+					</a>
+				</td>
+				<td>
+					<a href={{ currentPage }}SeqIden_60_Res_2.2_RVal_1.0>
+						SeqIden_60_Res_2.2_RVal_1.0.gz
+					</a>
+				</td>
+			</tr>
+			<tr>
+				<td>
+					<a href={{ currentPage }}SeqIden_60_Res_2.5_RVal_0.25>
+						SeqIden_60_Res_2.5_RVal_0.25.gz
+					</a>
+				</td>
+				<td>
+					<a href={{ currentPage }}SeqIden_60_Res_2.5_RVal_1.0>
+						SeqIden_60_Res_2.5_RVal_1.0.gz
+					</a>
+				</td>
+			</tr>
+			<tr>
+				<td>
+					<a href={{ currentPage }}SeqIden_60_Res_3.0_RVal_0.25>
+						SeqIden_60_Res_3.0_RVal_0.25.gz
+					</a>
+				</td>
+				<td>
+					<a href={{ currentPage }}SeqIden_60_Res_3.0_RVal_1.0>
+						SeqIden_60_Res_3.0_RVal_1.0.gz
+					</a>
+				</td>
+			</tr>
+		</table>
+		<p align="center">
+			<a href={{ currentPage }}SeqIden_60_Res_100.0_RVal_1.0_INCLNONXRAY_INCLCAONLY>
+				SeqIden_60_Res_100.0_RVal_1.0_INCLNONXRAY_INCLCAONLY.gz
+			</a>
+		</p>
+		<br />
+		<a name="70"></a>
+		<p align="center">
+			<b>70% Sequence Identity</b>
+		</p>
+		<table align="center" border=1 cellspacing=2 cellpadding=2>
+			<tr>
+				<td>
+					<a href={{ currentPage }}SeqIden_70_Res_1.6_RVal_0.25>
+						SeqIden_70_Res_1.6_RVal_0.25.gz
+					</a>
+				</td>
+				<td>
+					<a href={{ currentPage }}SeqIden_70_Res_1.6_RVal_1.0>
+						SeqIden_70_Res_1.6_RVal_1.0.gz
+					</a>
+				</td>
+			</tr>
+			<tr>
+				<td>
+					<a href={{ currentPage }}SeqIden_70_Res_1.8_RVal_0.25>
+						SeqIden_70_Res_1.8_RVal_0.25.gz
+					</a>
+				</td>
+				<td>
+					<a href={{ currentPage }}SeqIden_70_Res_1.8_RVal_1.0>
+						SeqIden_70_Res_1.8_RVal_1.0.gz
+					</a>
+				</td>
+			</tr>
+			<tr>
+				<td>
+					<a href={{ currentPage }}SeqIden_70_Res_2.0_RVal_0.25>
+						SeqIden_70_Res_2.0_RVal_0.25.gz
+					</a>
+				</td>
+				<td>
+					<a href={{ currentPage }}SeqIden_70_Res_2.0_RVal_1.0>
+						SeqIden_70_Res_2.0_RVal_1.0.gz
+					</a>
+				</td>
+			</tr>
+			<tr>
+				<td>
+					<a href={{ currentPage }}SeqIden_70_Res_2.2_RVal_0.25>
+						SeqIden_70_Res_2.2_RVal_0.25.gz
+					</a>
+				</td>
+				<td>
+					<a href={{ currentPage }}SeqIden_70_Res_2.2_RVal_1.0>
+						SeqIden_70_Res_2.2_RVal_1.0.gz
+					</a>
+				</td>
+			</tr>
+			<tr>
+				<td>
+					<a href={{ currentPage }}SeqIden_70_Res_2.5_RVal_0.25>
+						SeqIden_70_Res_2.5_RVal_0.25.gz
+					</a>
+				</td>
+				<td>
+					<a href={{ currentPage }}SeqIden_70_Res_2.5_RVal_1.0>
+						SeqIden_70_Res_2.5_RVal_1.0.gz
+					</a>
+				</td>
+			</tr>
+			<tr>
+				<td>
+					<a href={{ currentPage }}SeqIden_70_Res_3.0_RVal_0.25>
+						SeqIden_70_Res_3.0_RVal_0.25.gz
+					</a>
+				</td>
+				<td>
+					<a href={{ currentPage }}SeqIden_70_Res_3.0_RVal_1.0>
+						SeqIden_70_Res_3.0_RVal_1.0.gz
+					</a>
+				</td>
+			</tr>
+		</table>
+		<p align="center">
+			<a href={{ currentPage }}SeqIden_70_Res_100.0_RVal_1.0_INCLNONXRAY_INCLCAONLY>
+				SeqIden_70_Res_100.0_RVal_1.0_INCLNONXRAY_INCLCAONLY.gz
+			</a>
+		</p>
+		<br />
+		<a name="80"></a>
+		<p align="center">
+			<b>80% Sequence Identity</b>
+		</p>
+		<table align="center" border=1 cellspacing=2 cellpadding=2>
+			<tr>
+				<td>
+					<a href={{ currentPage }}SeqIden_80_Res_1.6_RVal_0.25>
+						SeqIden_80_Res_1.6_RVal_0.25.gz
+					</a>
+				</td>
+				<td>
+					<a href={{ currentPage }}SeqIden_80_Res_1.6_RVal_1.0>
+						SeqIden_80_Res_1.6_RVal_1.0.gz
+					</a>
+				</td>
+			</tr>
+			<tr>
+				<td>
+					<a href={{ currentPage }}SeqIden_80_Res_1.8_RVal_0.25>
+						SeqIden_80_Res_1.8_RVal_0.25.gz
+					</a>
+				</td>
+				<td>
+					<a href={{ currentPage }}SeqIden_80_Res_1.8_RVal_1.0>
+						SeqIden_80_Res_1.8_RVal_1.0.gz
+					</a>
+				</td>
+			</tr>
+			<tr>
+				<td>
+					<a href={{ currentPage }}SeqIden_80_Res_2.0_RVal_0.25>
+						SeqIden_80_Res_2.0_RVal_0.25.gz
+					</a>
+				</td>
+				<td>
+					<a href={{ currentPage }}SeqIden_80_Res_2.0_RVal_1.0>
+						SeqIden_80_Res_2.0_RVal_1.0.gz
+					</a>
+				</td>
+			</tr>
+			<tr>
+				<td>
+					<a href={{ currentPage }}SeqIden_80_Res_2.2_RVal_0.25>
+						SeqIden_80_Res_2.2_RVal_0.25.gz
+					</a>
+				</td>
+				<td>
+					<a href={{ currentPage }}SeqIden_80_Res_2.2_RVal_1.0>
+						SeqIden_80_Res_2.2_RVal_1.0.gz
+					</a>
+				</td>
+			</tr>
+			<tr>
+				<td>
+					<a href={{ currentPage }}SeqIden_80_Res_2.5_RVal_0.25>
+						SeqIden_80_Res_2.5_RVal_0.25.gz
+					</a>
+				</td>
+				<td>
+					<a href={{ currentPage }}SeqIden_80_Res_2.5_RVal_1.0>
+						SeqIden_80_Res_2.5_RVal_1.0.gz
+					</a>
+				</td>
+			</tr>
+			<tr>
+				<td>
+					<a href={{ currentPage }}SeqIden_80_Res_3.0_RVal_0.25>
+						SeqIden_80_Res_3.0_RVal_0.25.gz
+					</a>
+				</td>
+				<td>
+					<a href={{ currentPage }}SeqIden_80_Res_3.0_RVal_1.0>
+						SeqIden_80_Res_3.0_RVal_1.0.gz
+					</a>
+				</td>
+			</tr>
+		</table>
+		<p align="center">
+			<a href={{ currentPage }}SeqIden_80_Res_100.0_RVal_1.0_INCLNONXRAY_INCLCAONLY>
+				SeqIden_80_Res_100.0_RVal_1.0_INCLNONXRAY_INCLCAONLY.gz
+			</a>
+		</p>
+		<br />
+		<a name="90"></a>
+		<p align="center">
+			<b>90% Sequence Identity</b>
+		</p>
+		<table align="center" border=1 cellspacing=2 cellpadding=2>
+			<tr>
+				<td>
+					<a href={{ currentPage }}SeqIden_90_Res_1.6_RVal_0.25>
+						SeqIden_90_Res_1.6_RVal_0.25.gz
+					</a>
+				</td>
+				<td>
+					<a href={{ currentPage }}SeqIden_90_Res_1.6_RVal_1.0>
+						SeqIden_90_Res_1.6_RVal_1.0.gz
+					</a>
+				</td>
+			</tr>
+			<tr>
+				<td>
+					<a href={{ currentPage }}SeqIden_90_Res_1.8_RVal_0.25>
+						SeqIden_90_Res_1.8_RVal_0.25.gz
+					</a>
+				</td>
+				<td>
+					<a href={{ currentPage }}SeqIden_90_Res_1.8_RVal_1.0>
+						SeqIden_90_Res_1.8_RVal_1.0.gz
+					</a>
+				</td>
+			</tr>
+			<tr>
+				<td>
+					<a href={{ currentPage }}SeqIden_90_Res_2.0_RVal_0.25>
+						SeqIden_90_Res_2.0_RVal_0.25.gz
+					</a>
+				</td>
+				<td>
+					<a href={{ currentPage }}SeqIden_90_Res_2.0_RVal_1.0>
+						SeqIden_90_Res_2.0_RVal_1.0.gz
+					</a>
+				</td>
+			</tr>
+			<tr>
+				<td>
+					<a href={{ currentPage }}SeqIden_90_Res_2.2_RVal_0.25>
+						SeqIden_90_Res_2.2_RVal_0.25.gz
+					</a>
+				</td>
+				<td>
+					<a href={{ currentPage }}SeqIden_90_Res_2.2_RVal_1.0>
+						SeqIden_90_Res_2.2_RVal_1.0.gz
+					</a>
+				</td>
+			</tr>
+			<tr>
+				<td>
+					<a href={{ currentPage }}SeqIden_90_Res_2.5_RVal_0.25>
+						SeqIden_90_Res_2.5_RVal_0.25.gz
+					</a>
+				</td>
+				<td>
+					<a href={{ currentPage }}SeqIden_90_Res_2.5_RVal_1.0>
+						SeqIden_90_Res_2.5_RVal_1.0.gz
+					</a>
+				</td>
+			</tr>
+			<tr>
+				<td>
+					<a href={{ currentPage }}SeqIden_90_Res_3.0_RVal_0.25>
+						SeqIden_90_Res_3.0_RVal_0.25.gz
+					</a>
+				</td>
+				<td>
+					<a href={{ currentPage }}SeqIden_90_Res_3.0_RVal_1.0>
+						SeqIden_90_Res_3.0_RVal_1.0.gz
+					</a>
+				</td>
+			</tr>
+		</table>
+		<p align="center">
+			<a href={{ currentPage }}SeqIden_90_Res_100.0_RVal_1.0_INCLNONXRAY_INCLCAONLY>
+				SeqIden_90_Res_100.0_RVal_1.0_INCLNONXRAY_INCLCAONLY.gz
+			</a>
+		</p>
+		<br />
+		<hr>
+		<a name="pdbaa"></a>
+		<h2>FASTA Files of the Entire PDB</h2>
+		<p>For a more in depth description of the format and process of generating the datasets, see <b><a href="{% url Leaf.views.help_page %}#PdbaaGeneration">here</a></b>.</p>
+		<p>
+			<a href={{ currentPage }}pdbaa>pdbaa.gz</a> - Every protein chain in the PDB is included once in pdbaa. An example of the format of the description line is as follows:<br>
+			<pre style="font-size:14px">>1GA2A  614  XRAY  1.7  0.17  0.197  no  ENDOGLUCANASE 9G  <UNP GUNG_CLOCE>  [Clostridium cellulolyticum]</pre>
+		</p>
+		<p>
+			<a href={{ currentPage }}pdbaaent>pdbaaent.gz</a> - Only those chains which are non-redundant withinn each entry (e.g. 1GA2) appear in pdbaaent. 
+			For example, 1GA2B has an identical sequence to 1GA2A, and therefore does not appear in pdbaaent. In this file, the description line for 1GA2A changes to:<br>
+			<pre style="font-size:14px">>1GA2A  614  XRAY  1.7  0.17  0.197  no  ENDOGLUCANASE 9G  <UNP GUNG_CLOCE>  [Clostridium cellulolyticum] || 1GA2B</pre>
+		</p>
+		<p>
+			<a href={{ currentPage }}pdbaanr>pdbaanr.gz</a> - Only those chains which are non-redundant withinn the entire PDB are included in pdbaanr. 
+			For example, 1KFGB, 1KFGA, 1K72B, 1K72A and 1GA2B all have the same sequence as 1GA2A, and therefore do not appear in pdbaanr. In this file, the description line for 1GA2A changes to:<br>
+			<pre style="font-size:14px">>1GA2A  614  XRAY  1.7  0.17  0.197  no  ENDOGLUCANASE 9G  <UNP GUNG_CLOCE>  [Clostridium cellulolyticum] || 1KFGB 1KFGA 1K72B 1K72A 1GA2B</pre>
+		</p>
+		<hr>
+		<a name="ModelOrganisms"></a>
+		<h2>Model Organism Datasets</h2>
+		<p align="center">Entire proteome datasets</p>
+		<table align="center" border=1 cellspacing=2 cellpadding=2>
+			<tr>
+				<td>
+					<a href={{ currentPage }}Human/Human.tar.gz>H. sapiens</a>
+				</td>
+				<td>
+					<a href={{ currentPage }}Mouse/Mouse.tar.gz>M. musculus</a>
+				</td>
+				<td>
+					<a href={{ currentPage }}Arabidopsis/Arabidopsis.tar.gz>A. thaliana</a>
+				</td>
+				<td>
+					<a href={{ currentPage }}EColi/EColi.tar.gz>E. coli</a>
+				</td>
+				<td>
+					<a href={{ currentPage }}Yeast/Yeast.tar.gz>S. cerevisiae</a>
+				</td>
+			</tr>
+		</table>
+		<br />
+		<p align="center">Non-redundant datasets</p>
+		<table align="center" border=1 cellspacing=2 cellpadding=2>
+			<tr>
+				<td>
+					<a href={{ currentPage }}Human/10.txt>H. sapiens 10%</a>
+				</td>
+				<td>
+					<a href={{ currentPage }}Mouse/10.txt>M. musculus 10%</a>
+				</td>
+				<td>
+					<a href={{ currentPage }}Arabidopsis/10.txt>A. thaliana 10%</a>
+				</td>
+				<td>
+					<a href={{ currentPage }}EColi/10.txt>E. coli 10%</a>
+				</td>
+				<td>
+					<a href={{ currentPage }}Yeast/10.txt>S. cerevisiae 10%</a>
+				</td>
+			</tr>
+			<tr>
+				<td>
+					<a href={{ currentPage }}Human/20.txt>H. sapiens 20%</a>
+				</td>
+				<td>
+					<a href={{ currentPage }}Mouse/20.txt>M. musculus 20%</a>
+				</td>
+				<td>
+					<a href={{ currentPage }}Arabidopsis/20.txt>A. thaliana 20%</a>
+				</td>
+				<td>
+					<a href={{ currentPage }}EColi/20.txt>E. coli 20%</a>
+				</td>
+				<td>
+					<a href={{ currentPage }}Yeast/20.txt>S. cerevisiae 20%</a>
+				</td>
+			</tr>
+			<tr>
+				<td>
+					<a href={{ currentPage }}Human/30.txt>H. sapiens 30%</a>
+				</td>
+				<td>
+					<a href={{ currentPage }}Mouse/30.txt>M. musculus 30%</a>
+				</td>
+				<td>
+					<a href={{ currentPage }}Arabidopsis/30.txt>A. thaliana 30%</a>
+				</td>
+				<td>
+					<a href={{ currentPage }}EColi/30.txt>E. coli 30%</a>
+				</td>
+				<td>
+					<a href={{ currentPage }}Yeast/30.txt>S. cerevisiae 30%</a>
+				</td>
+			</tr>
+			<tr>
+				<td>
+					<a href={{ currentPage }}Human/40.txt>H. sapiens 40%</a>
+				</td>
+				<td>
+					<a href={{ currentPage }}Mouse/40.txt>M. musculus 40%</a>
+				</td>
+				<td>
+					<a href={{ currentPage }}Arabidopsis/40.txt>A. thaliana 40%</a>
+				</td>
+				<td>
+					<a href={{ currentPage }}EColi/40.txt>E. coli 40%</a>
+				</td>
+				<td>
+					<a href={{ currentPage }}Yeast/40.txt>S. cerevisiae 40%</a>
+				</td>
+			</tr>
+			<tr>
+				<td>
+					<a href={{ currentPage }}Human/50.txt>H. sapiens 50%</a>
+				</td>
+				<td>
+					<a href={{ currentPage }}Mouse/50.txt>M. musculus 50%</a>
+				</td>
+				<td>
+					<a href={{ currentPage }}Arabidopsis/50.txt>A. thaliana 50%</a>
+				</td>
+				<td>
+					<a href={{ currentPage }}EColi/50.txt>E. coli 50%</a>
+				</td>
+				<td>
+					<a href={{ currentPage }}Yeast/50.txt>S. cerevisiae 50%</a>
+				</td>
+			</tr>
+			<tr>
+				<td>
+					<a href={{ currentPage }}Human/60.txt>H. sapiens 60%</a>
+				</td>
+				<td>
+					<a href={{ currentPage }}Mouse/60.txt>M. musculus 60%</a>
+				</td>
+				<td>
+					<a href={{ currentPage }}Arabidopsis/60.txt>A. thaliana 60%</a>
+				</td>
+				<td>
+					<a href={{ currentPage }}EColi/60.txt>E. coli 60%</a>
+				</td>
+				<td>
+					<a href={{ currentPage }}Yeast/60.txt>S. cerevisiae 60%</a>
+				</td>
+			</tr>
+			<tr>
+				<td>
+					<a href={{ currentPage }}Human/70.txt>H. sapiens 70%</a>
+				</td>
+				<td>
+					<a href={{ currentPage }}Mouse/70.txt>M. musculus 70%</a>
+				</td>
+				<td>
+					<a href={{ currentPage }}Arabidopsis/70.txt>A. thaliana 70%</a>
+				</td>
+				<td>
+					<a href={{ currentPage }}EColi/70.txt>E. coli 70%</a>
+				</td>
+				<td>
+					<a href={{ currentPage }}Yeast/70.txt>S. cerevisiae 70%</a>
+				</td>
+			</tr>
+			<tr>
+				<td>
+					<a href={{ currentPage }}Human/80.txt>H. sapiens 80%</a>
+				</td>
+				<td>
+					<a href={{ currentPage }}Mouse/80.txt>M. musculus 80%</a>
+				</td>
+				<td>
+					<a href={{ currentPage }}Arabidopsis/80.txt>A. thaliana 80%</a>
+				</td>
+				<td>
+					<a href={{ currentPage }}EColi/80.txt>E. coli 80%</a>
+				</td>
+				<td>
+					<a href={{ currentPage }}Yeast/80.txt>S. cerevisiae 80%</a>
+				</td>
+			</tr>
+			<tr>
+				<td>
+					<a href={{ currentPage }}Human/90.txt>H. sapiens 90%</a>
+				</td>
+				<td>
+					<a href={{ currentPage }}Mouse/90.txt>M. musculus 90%</a>
+				</td>
+				<td>
+					<a href={{ currentPage }}Arabidopsis/90.txt>A. thaliana 90%</a>
+				</td>
+				<td>
+					<a href={{ currentPage }}EColi/90.txt>E. coli 90%</a>
+				</td>
+				<td>
+					<a href={{ currentPage }}Yeast/90.txt>S. cerevisiae 90%</a>
+				</td>
+			</tr>
+		</table>
+		<hr>
+		<a name="SourceCode"></a>
+		<h2>Downloads for Local Redundancy Removal</h2>
+		<p>
+			The source code and data files needed to run Leaf locally. The PDB data files are only necessary if you want to cull the PDB locally. 
+			Two different versions of the source code are provided. Download the one that is appropriate for your local OS. 
+			For more information on how to run the program, and what data is needed, see the README included with the source code.
+		</p>
+		<p>
+			<a href={{ currentPage }}WindowsSourceCode>Windows Source Code</a> - The source code and BLAST executables needed to run the redundancy removal on Windows machines.
+		</p>
+		<p>
+			<a href={{ currentPage }}LinuxSourceCode>Linux Source Code</a> - The source code and BLAST executables needed to run the redundancy removal on Linux machines.
+		</p>
+		<p>
+			<a href={{ currentPage }}StandaloneFiles>PDB Data Files</a> - Up to date processed PDB data files. These are needed to run the PDB redundancy removal on a local machine.
+		</p>
+	</div>
+
+	<div id="footer">
+		<p>Last updated <!-- #BeginDate format:Am1 -->July 16, 2012<!-- #EndDate -->.</p>
+	</div>
+
+</body>
+
+</html>

@@ -1,0 +1,212 @@
+
+
+<html>
+
+<head>
+
+	<title>Leaf Protein Culling Server</title>
+	<LINK REL=StyleSheet href="{{ MEDIA_URL }}style.css" TYPE="text/css">
+       {% if notComplete %}
+           <meta http-equiv="refresh" content="60" >
+       {% endif %}
+
+</head>
+
+<body>
+
+	<div id="header">
+		<h1>Leaf Protein Culling Server</h1>
+	</div>
+
+	<div id="navigation">
+		<p>
+			<b>
+				<a href="{% url Leaf.views.index %}">
+					Home
+				</a>
+			</b>
+		</p>
+		<p>
+			<b>
+				<a href="{% url Leaf.views.culling %}">
+					Culling
+				</a>
+			</b>
+		</p>
+		<p>
+			<b>
+				<a href="{% url Leaf.views.downloads %}">
+					Culled Lists and Source Code
+				</a>
+			</b>
+		</p>
+		<p>
+			<b>
+				<a href="{% url Leaf.views.contact %}">
+					Contact Information
+				</a>
+			</b>
+		</p>
+	</div>
+
+	<div id="content">
+		<p>
+			{% if notComplete %}
+				<p style="text-align: center;">
+					Your request has not finished yet. If you are culling from the PDB, the time taken for the culling to finish is highly dependent on the percent sequence identity and the structural criteria you provided.<br>
+					This page is set to refresh every 60 seconds. Alternatively you can refresh the page manualy, or record the URL of the page and come back later.
+				</p>
+			{% else %}
+				<p style="text-align: center;">
+					Your request has finished processing. The files containing the results are below. For information about the format of the results files, please see <b><a href="{% url Leaf.views.help_page %}#ResultsDescription">here</a></b>.
+				</p>
+				{% if notWholePDB %}
+					<p style="text-align: center;">
+						<a href={{ resultsLink }}/Input>
+							User Input
+						</a>
+					</p>
+				{% endif %}
+				<p style="text-align: center;">
+					<a href={{ resultsLink }}/Removed>
+						Input Sequences Removed
+					</a>
+				</p>
+				<p style="text-align: center;">
+					<a href={{ resultsLink }}/NonRedundantList>
+						Non-redundant Sequence Statistics
+					</a>
+				</p>
+				<p style="text-align: center;">
+					<a href={{ resultsLink }}/NonRedundantFasta>
+						Non-redundant Sequences
+					</a>
+				</p>
+			{% endif %}
+		</p>
+		<hr>
+		<p style="text-align: center;">
+			The parameters used to generate the non-redundant dataset were:<br><br>
+			<table align='center' border='2' cellpadding=5>
+					<tr>
+						<td>
+							<b>Percentage sequence identity threshold:</b>
+						</td>
+						<td>
+							<b>{{ percentage }}</b>
+						</td>
+					</tr>
+					{% if resolution %}
+						<tr>
+							<td>
+								<b>Resolution range:</b>
+							</td>
+							<td>
+								<b>{{ resolution }}</b>
+							</td>
+						</tr>
+					{% endif %}
+					{% if RVal %}
+						<tr>
+							<td>
+								<b>Maximum R-factor:</b>
+							</td>
+							<td>
+								<b>{{ RVal }}</b>
+							</td>
+						</tr>
+					{% endif %}
+						<tr>
+							<td>
+								<b>Minimum length:</b>
+							</td>
+							<td>
+								<b>{{ minlength }}</b>
+							</td>
+						</tr>
+						<tr>
+							<td>
+								<b>Maximum length:</b>
+							</td>
+							<td>
+								<b>{{ maxlength }}</b>
+							</td>
+						</tr>
+					{% if xray %}
+						<tr>
+							<td>
+								<b>Non X-ray entries excluded:</b>
+							</td>
+							<td>
+								<b>{{ xray }}</b>
+							</td>
+						</tr>
+					{% endif %}
+					{% if alphacarbon %}
+						<tr>
+							<td>
+								<b>Alpha carbon only entries excluded:</b>
+							</td>
+							<td>
+								<b>{{ alphacarbon }}</b>
+							</td>
+						</tr>
+					{% endif %}
+					{% if cullmethod %}
+						<tr>
+							<td>
+								<b>Cull the PDB by:</b>
+							</td>
+							<td>
+								<b>{{ cullmethod }}</b>
+							</td>
+						</tr>
+					{% endif %}
+					{% if intraentrycull %}
+						<tr>
+							<td>
+								<b>Cull chains within entries:</b>
+							</td>
+							<td>
+								<b>{{ intraentrycull }}</b>
+							</td>
+						</tr>
+					{% endif %}
+					{% if intraentrypc %}
+						<tr>
+							<td>
+								<b>Within entry culling threshold:</b>
+							</td>
+							<td>
+								<b>{{ intraentrypc }}</b>
+							</td>
+						</tr>
+					{% endif %}
+<!--					{% if seg %}
+						<tr>
+							<td>
+								<b>SEG was:</b>
+							</td>
+							<td>
+								<b>{{ seg }}</b>
+							</td>
+						</tr>
+					{% endif %}
+-->
+			</table>
+			
+		</p>
+<!--		<hr>
+		<p style="text-align: center;">
+			<a href={{ resultsLink }}>Results Page</a>
+		</p>
+//-->
+	</div>
+
+	<div id="footer">
+		<p>Last updated <!-- #BeginDate format:Am1 -->July 16, 2012<!-- #EndDate -->.</p>
+	</div>
+
+</body>
+
+</html>
